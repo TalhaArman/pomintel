@@ -77,7 +77,7 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
     }
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbxR038nvdeKZMjGqzjuiKficKGa1uv0_iwmFEwapwgsNn7N2yw0HKW-jI4VzhP5oISB/exec', {
+      const response = await fetch(https://script.google.com/macros/s/AKfycbxR038nvdeKZMjGqzjuiKficKGa1uv0_iwmFEwapwgsNn7N2yw0HKW-jI4VzhP5oISB/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
