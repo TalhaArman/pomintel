@@ -99,7 +99,7 @@ const DashboardHeader = () => {
     }
     setIsSubscribing(true);
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbw585g5Ft1ziY2GFW_-Zzkz5msw3-NWu-n5VsF9qNSdkJqJ9dg7MO4ij-D02gVpaP_j/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbwDFV5WlUTAXE2RgfqN9t8JQpZGdRpxJaD0yp1ptZ50oUEYmm_AwJ_qDGfVsEmXjpVU/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ const DashboardHeader = () => {
         toast({
           title: "Subscribed!",
           description: "You have been added to our email list.",
-          variant: "success"
+          variant: "default"
         });
         setSubscriberEmail('');
       } else {

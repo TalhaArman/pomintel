@@ -104,7 +104,13 @@ const MarketPricesTable = () => {
     <Card className="mt-6 mb-6">
       <CardHeader>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
-          <CardTitle>Market Prices</CardTitle>
+          <CardTitle className="flex items-center gap-2">
+            Market Prices
+            <Tooltip>
+              <TooltipTrigger><Info className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
+              <TooltipContent>Real-time global market prices for pomegranates, including status, change, and trends.</TooltipContent>
+            </Tooltip>
+          </CardTitle>
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
             <div className="flex justify-between items-center gap-2 sm:justify-start">
               <DropdownMenu>

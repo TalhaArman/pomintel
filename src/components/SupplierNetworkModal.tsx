@@ -77,7 +77,7 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
     }
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbw585g5Ft1ziY2GFW_-Zzkz5msw3-NWu-n5VsF9qNSdkJqJ9dg7MO4ij-D02gVpaP_j/exec', {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbwDFV5WlUTAXE2RgfqN9t8JQpZGdRpxJaD0yp1ptZ50oUEYmm_AwJ_qDGfVsEmXjpVU/exec', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
         onClose();
       } else {
         toast({
-          title: "Submission Failed",
+          title: "Submission Failedgit status",
           description: "There was a problem sending your data. Please try again later.",
           variant: "destructive"
         });

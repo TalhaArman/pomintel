@@ -378,7 +378,7 @@ const Articles = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="mb-6">
+            <div className="mb-6 h-64 md:h-80 lg:h-96">
               <img 
                 src={articles[0].image} 
                 alt={articles[0].title}

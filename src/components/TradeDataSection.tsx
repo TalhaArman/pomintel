@@ -185,8 +185,20 @@ const TradeDataSection = () => {
         {/* Header with Data Range */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h2 className="text-2xl font-semibold text-foreground">Trade Data</h2>
-            <p className="text-sm text-muted-foreground">Data shown: 2024 (Quarterly)</p>
+            <h2 className="text-2xl font-semibold text-foreground flex items-center gap-2">
+              Trade Data
+              <Tooltip>
+                <TooltipTrigger><Info className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
+                <TooltipContent>Overview of global pomegranate import and export trends.</TooltipContent>
+              </Tooltip>
+            </h2>
+            <p className="text-sm text-muted-foreground flex items-center gap-1">
+              Data shown: 2024 (Quarterly)
+              <Tooltip>
+                <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
+                <TooltipContent>Data is currently filtered to display quarterly statistics for the year 2024.</TooltipContent>
+              </Tooltip>
+            </p>
           </div>
         </div>
 
@@ -447,7 +459,13 @@ const TradeDataSection = () => {
 
         <Card className="mb-8">
           <CardHeader>
-            <CardTitle>Country Trade Performance</CardTitle>
+            <CardTitle className="flex items-center gap-2">
+              Country Trade Performance
+              <Tooltip>
+                <TooltipTrigger><Info className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
+                <TooltipContent>Detailed performance metrics for individual countries in pomegranate trade.</TooltipContent>
+              </Tooltip>
+            </CardTitle>
           </CardHeader>
           <CardContent className="p-0">
             <div className="overflow-x-auto scrollbar-hide">
