@@ -25,81 +25,58 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
     monthlyVolume: '',
     pricePerKG: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const validateField = (field: string, value: string) => {
-    let error = '';
-    if (["name", "phone", "email", "country", "type"].includes(field) && !value) {
-      error = 'Required';
-    }
-    if (field === 'email' && value) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(value)) {
-        error = 'Invalid email';
-      }
-    }
-    setErrors(prev => ({ ...prev, [field]: error }));
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-    validateField(field, value);
-  };
-
-  const validateForm = () => {
-    const newErrors: any = {};
-    ["name", "phone", "email", "country", "type"].forEach(field => {
-      if (!formData[field]) newErrors[field] = 'Required';
-    });
-    if (formData.email) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(formData.email)) {
-        newErrors.email = 'Invalid email';
-      }
-    }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!validateForm()) {
+    
+    // Basic validation
+    if (!formData.name || !formData.phone || !formData.email || !formData.country || !formData.type) {
       toast({
-        title: "Missing or Invalid Fields",
-        description: "Please correct the highlighted fields.",
+        title: "Missing Required Fields",
+        description: "Please fill in all required fields marked with *",
         variant: "destructive"
       });
       return;
     }
-    setIsSubmitting(true);
-    try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwDFV5WlUTAXE2RgfqN9t8JQpZGdRpxJaD0yp1ptZ50oUEYmm_AwJ_qDGfVsEmXjpVU/exec', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          type: 'early-access',
-          name: formData.name,
-          phone: formData.phone,
-          email: formData.email,
-          country: formData.country,
-          companyName: formData.companyName,
-          companyWebsite: formData.companyWebsite,
-          type: formData.type,
-          monthlyVolume: formData.monthlyVolume,
-          pricePerKg: formData.pricePerKG,
-        }),
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address",
+        variant: "destructive"
       });
-      if (response.ok) {
+      return;
+    }
+
+    // Send data to Web3Forms
+    const payload = {
+      access_key: "c74cd7ff-2723-44af-b9e6-fcd79504b4b4",
+      name: formData.name,
+      phone: formData.phone,
+      email: formData.email,
+      country: formData.country,
+      companyName: formData.companyName,
+      companyWebsite: formData.companyWebsite,
+      type: formData.type,
+      monthlyVolume: formData.monthlyVolume,
+      pricePerKG: formData.pricePerKG
+    };
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+      const result = await response.json();
+      if (result.success) {
         toast({
-          title: "Submitted!",
-          description: "Your information has been sent. We'll be in touch soon.",
-          variant: "default"
+          title: "Application Submitted!",
+          description: "Thank you for joining the Pomintel Supplier Network. We'll be in touch soon.",
         });
         setFormData({
           name: '',
@@ -110,26 +87,30 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
           companyWebsite: '',
           type: '',
           monthlyVolume: '',
-          pricePerKG: '',
+          pricePerKG: ''
         });
-        setErrors({});
         onClose();
       } else {
         toast({
-          title: "Submission Failedgit status",
-          description: "There was a problem sending your data. Please try again later.",
+          title: "Submission Failed",
+          description: result.message || "There was an error submitting your application. Please try again.",
           variant: "destructive"
         });
       }
     } catch (error) {
       toast({
-        title: "Submission Error",
-        description: "There was a problem sending your data. Please try again later.",
+        title: "Submission Failed",
+        description: "There was an error submitting your application. Please try again.",
         variant: "destructive"
       });
-    } finally {
-      setIsSubmitting(false);
     }
+  };
+
+  const handleInputChange = (field: string, value: string) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   return (
@@ -154,11 +135,9 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
               id="name"
               value={formData.name}
               onChange={(e) => handleInputChange('name', e.target.value)}
-              onBlur={(e) => validateField('name', e.target.value)}
-              className={`mt-1 ${errors['name'] ? 'border-red-500' : ''}`}
+              className="mt-1"
               required
             />
-            {errors['name'] && <div className="text-xs text-red-500 mt-1">{errors['name']}</div>}
           </div>
 
           <div>
@@ -170,11 +149,9 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
               placeholder="Ex: +1-804-440-4440"
               value={formData.phone}
               onChange={(e) => handleInputChange('phone', e.target.value)}
-              onBlur={(e) => validateField('phone', e.target.value)}
-              className={`mt-1 ${errors['phone'] ? 'border-red-500' : ''}`}
+              className="mt-1"
               required
             />
-            {errors['phone'] && <div className="text-xs text-red-500 mt-1">{errors['phone']}</div>}
           </div>
 
           <div>
@@ -187,11 +164,9 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
               placeholder="name@example.com"
               value={formData.email}
               onChange={(e) => handleInputChange('email', e.target.value)}
-              onBlur={(e) => validateField('email', e.target.value)}
-              className={`mt-1 ${errors['email'] ? 'border-red-500' : ''}`}
+              className="mt-1"
               required
             />
-            {errors['email'] && <div className="text-xs text-red-500 mt-1">{errors['email']}</div>}
           </div>
 
           <div>
@@ -202,11 +177,9 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
               id="country"
               value={formData.country}
               onChange={(e) => handleInputChange('country', e.target.value)}
-              onBlur={(e) => validateField('country', e.target.value)}
-              className={`mt-1 ${errors['country'] ? 'border-red-500' : ''}`}
+              className="mt-1"
               required
             />
-            {errors['country'] && <div className="text-xs text-red-500 mt-1">{errors['country']}</div>}
           </div>
 
           <div>
@@ -238,7 +211,7 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
               Type <span className="text-red-500">*</span>
             </Label>
             <Select value={formData.type} onValueChange={(value) => handleInputChange('type', value)}>
-              <SelectTrigger className={`mt-1 ${errors['type'] ? 'border-red-500' : ''}`}>
+              <SelectTrigger className="mt-1">
                 <SelectValue placeholder="Select Type" />
               </SelectTrigger>
               <SelectContent className="bg-background border border-border shadow-lg z-50">
@@ -251,7 +224,6 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
                 <SelectItem value="other">Other</SelectItem>
               </SelectContent>
             </Select>
-            {errors['type'] && <div className="text-xs text-red-500 mt-1">{errors['type']}</div>}
           </div>
 
           <div>
@@ -278,7 +250,7 @@ const SupplierNetworkModal = ({ isOpen, onClose }: SupplierNetworkModalProps) =>
             />
           </div>
 
-          <Button type="submit" className="w-full bg-black text-white hover:bg-black/90 mt-6" disabled={isSubmitting}>
+          <Button type="submit" className="w-full bg-black text-white hover:bg-black/90 mt-6">
             Submit
           </Button>
         </form>

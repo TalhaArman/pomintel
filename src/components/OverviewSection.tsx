@@ -124,12 +124,7 @@ const OverviewSection = () => {
         <Card className="h-[280px] flex flex-col">
           <CardHeader className="pb-3 flex-shrink-0">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base font-semibold flex items-center gap-1">Top Exporters
-                <Tooltip>
-                  <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                  <TooltipContent>Countries with the highest pomegranate export volumes.</TooltipContent>
-                </Tooltip>
-              </CardTitle>
+              <CardTitle className="text-base font-semibold">Top Exporters</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -163,12 +158,7 @@ const OverviewSection = () => {
         <Card className="h-[280px] flex flex-col">
           <CardHeader className="pb-3 flex-shrink-0">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base font-semibold flex items-center gap-1">Top Importers
-                <Tooltip>
-                  <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                  <TooltipContent>Countries with the highest pomegranate import volumes.</TooltipContent>
-                </Tooltip>
-              </CardTitle>
+              <CardTitle className="text-base font-semibold">Top Importers</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm" 
@@ -202,12 +192,7 @@ const OverviewSection = () => {
         <Card className="h-[280px] flex flex-col">
           <CardHeader className="pb-3 flex-shrink-0">
             <div className="flex items-center justify-between">
-              <CardTitle className="text-base font-semibold flex items-center gap-1">YOY Growth
-                <Tooltip>
-                  <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                  <TooltipContent>Annual percentage change in pomegranate trade volume.</TooltipContent>
-                </Tooltip>
-              </CardTitle>
+              <CardTitle className="text-base font-semibold">YOY Growth</CardTitle>
               <Button 
                 variant="ghost" 
                 size="sm" 

@@ -1,26 +1,26 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { ArrowUpDown, Info, ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
+import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
 const TradeDataSection = () => {
   const chartData = [
-    { month: 'JAN', import: 120, export: 80 },
-    { month: 'FEB', import: 140, export: 90 },
-    { month: 'MAR', import: 160, export: 110 },
-    { month: 'APR', import: 180, export: 130 },
-    { month: 'MAY', import: 200, export: 150 },
-    { month: 'JUN', import: 220, export: 170 },
-    { month: 'JUL', import: 240, export: 190 },
-    { month: 'AUG', import: 260, export: 210 },
-    { month: 'SEP', import: 280, export: 230 },
-    { month: 'OCT', import: 300, export: 250 },
-    { month: 'NOV', import: 320, export: 270 },
-    { month: 'DEC', import: 340, export: 290 },
+    { month: 'JAN', import: 120000, export: 80000 },
+    { month: 'FEB', import: 140000, export: 90000 },
+    { month: 'MAR', import: 160000, export: 110000 },
+    { month: 'APR', import: 180000, export: 130000 },
+    { month: 'MAY', import: 200000, export: 150000 },
+    { month: 'JUN', import: 220000, export: 170000 },
+    { month: 'JUL', import: 240000, export: 190000 },
+    { month: 'AUG', import: 260000, export: 210000 },
+    { month: 'SEP', import: 280000, export: 230000 },
+    { month: 'OCT', import: 300000, export: 250000 },
+    { month: 'NOV', import: 320000, export: 270000 },
+    { month: 'DEC', import: 340000, export: 290000 },
   ];
 
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>(null);
@@ -30,8 +30,8 @@ const TradeDataSection = () => {
   
   // Generate random initial summary data on each page load
   const [summaryData, setSummaryData] = useState(() => ({
-    importVolume: Math.round(3000 + Math.random() * 500), // 3000-3500K range
-    exportVolume: Math.round(2000 + Math.random() * 400), // 2000-2400K range
+    importVolume: Math.round((3000 + Math.random() * 500) * 1000), // 3,000,000-3,500,000 range
+    exportVolume: Math.round((2000 + Math.random() * 400) * 1000), // 2,000,000-2,400,000 range
     activeCountries: Math.round(5 + Math.random() * 3), // 5-8 range
     yoyGrowth: parseFloat((5 + Math.random() * 8).toFixed(1)) // 5-13% range
   }));
@@ -145,12 +145,29 @@ const TradeDataSection = () => {
     setTimeRange(range);
   };
 
+  // Custom tooltip component for the chart
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-background border border-border rounded-lg p-3 shadow-lg">
+          <p className="font-medium text-foreground mb-2">{`Month: ${label}`}</p>
+          {payload.map((entry: any, index: number) => (
+            <p key={index} style={{ color: entry.color }} className="text-sm">
+              {`${entry.name}: ${entry.value.toLocaleString()} tons`}
+            </p>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
   // Auto-update summary data with random changes
   useEffect(() => {
     const updateSummaryData = () => {
       setSummaryData(prev => ({
-        importVolume: Math.round(prev.importVolume + (Math.random() - 0.5) * 100), // ±50K fluctuation
-        exportVolume: Math.round(prev.exportVolume + (Math.random() - 0.5) * 80), // ±40K fluctuation  
+        importVolume: Math.round(prev.importVolume + (Math.random() - 0.5) * 100000), // ±50K fluctuation
+        exportVolume: Math.round(prev.exportVolume + (Math.random() - 0.5) * 80000), // ±40K fluctuation  
         activeCountries: Math.max(5, Math.min(8, prev.activeCountries + Math.round((Math.random() - 0.5) * 2))), // 5-8 range
         yoyGrowth: parseFloat((prev.yoyGrowth + (Math.random() - 0.5) * 2).toFixed(1)) // ±1% fluctuation
       }));
@@ -184,21 +201,19 @@ const TradeDataSection = () => {
       <div className="space-y-6">
         {/* Header with Data Range */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h2 className="text-2xl font-semibold text-foreground flex items-center gap-2">
-              Trade Data
-              <Tooltip>
-                <TooltipTrigger><Info className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                <TooltipContent>Overview of global pomegranate import and export trends.</TooltipContent>
-              </Tooltip>
-            </h2>
-            <p className="text-sm text-muted-foreground flex items-center gap-1">
-              Data shown: 2024 (Quarterly)
-              <Tooltip>
-                <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                <TooltipContent>Data is currently filtered to display quarterly statistics for the year 2024.</TooltipContent>
-              </Tooltip>
-            </p>
+          <div className="flex items-center gap-2">
+            <h2 className="text-2xl font-semibold text-foreground">Trade Data</h2>
+            <UITooltip>
+              <TooltipTrigger>
+                <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent>
+                <p className="text-sm max-w-xs">
+                  Comprehensive pomegranate trade analytics including bilateral trade flows, volume trends, seasonal patterns, and market share analysis from global customs databases and trade statistics.
+                </p>
+              </TooltipContent>
+            </UITooltip>
+            <p className="text-sm text-muted-foreground ml-2">Data shown: 2024 (Quarterly)</p>
           </div>
         </div>
 
@@ -397,18 +412,20 @@ const TradeDataSection = () => {
                   tickLine={{ stroke: '#666' }}
                 />
                 <YAxis 
-                  label={{ value: 'Volume (Thousands USD)', angle: -90, position: 'insideLeft' }}
+                  label={{ value: 'Trade Volume (tons)', angle: -90, position: 'insideLeft' }}
                   tick={{ fontSize: 11 }}
+                  tickFormatter={(value) => value.toLocaleString()}
                 />
+                <Tooltip content={<CustomTooltip />} />
                 {activeTradeTypes.import && (
                   <Line 
                     type="monotone" 
                     dataKey="import" 
                     stroke="#dc2626" 
-                    strokeWidth={3}
+                    strokeWidth={2}
                     name="Import"
-                    dot={{ fill: '#dc2626', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, stroke: '#dc2626', strokeWidth: 2 }}
+                    dot={false}
+                    activeDot={{ r: 4, stroke: '#dc2626', strokeWidth: 2 }}
                   />
                 )}
                 {activeTradeTypes.export && (
@@ -416,12 +433,18 @@ const TradeDataSection = () => {
                     type="monotone" 
                     dataKey="export" 
                     stroke="#16a34a" 
-                    strokeWidth={3}
+                    strokeWidth={2}
                     name="Export"
-                    dot={{ fill: '#16a34a', strokeWidth: 2, r: 4 }}
-                    activeDot={{ r: 6, stroke: '#16a34a', strokeWidth: 2 }}
+                    dot={false}
+                    activeDot={{ r: 4, stroke: '#16a34a', strokeWidth: 2 }}
                   />
                 )}
+                <Legend 
+                  verticalAlign="bottom" 
+                  height={36}
+                  iconType="line"
+                  wrapperStyle={{ paddingTop: '20px' }}
+                />
               </LineChart>
             </ResponsiveContainer>
             
@@ -429,15 +452,15 @@ const TradeDataSection = () => {
             <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/30 rounded-lg">
               <div className="text-center">
                 <div className="text-lg font-bold text-red-600 transition-all duration-500">
-                  {summaryData.importVolume.toLocaleString()}K
+                  {summaryData.importVolume.toLocaleString()}
                 </div>
-                <div className="text-xs text-muted-foreground">Total Import Volume</div>
+                <div className="text-xs text-muted-foreground">Total Import Volume (tons)</div>
               </div>
               <div className="text-center">
                 <div className="text-lg font-bold text-green-600 transition-all duration-500">
-                  {summaryData.exportVolume.toLocaleString()}K
+                  {summaryData.exportVolume.toLocaleString()}
                 </div>
-                <div className="text-xs text-muted-foreground">Total Export Volume</div>
+                <div className="text-xs text-muted-foreground">Total Export Volume (tons)</div>
               </div>
               <div className="text-center">
                 <div className="text-lg font-bold transition-all duration-500">
@@ -457,15 +480,21 @@ const TradeDataSection = () => {
           </CardContent>
         </Card>
 
-        <Card className="mb-8">
+        <Card>
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              Country Trade Performance
-              <Tooltip>
-                <TooltipTrigger><Info className="w-5 h-5 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                <TooltipContent>Detailed performance metrics for individual countries in pomegranate trade.</TooltipContent>
-              </Tooltip>
-            </CardTitle>
+            <div className="flex items-center gap-2">
+              <CardTitle>Country Trade Performance</CardTitle>
+              <UITooltip>
+                <TooltipTrigger>
+                  <Info className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p className="text-sm max-w-xs">
+                    Comprehensive trade performance rankings by country, including export volumes, import data, trade balance, and year-over-year growth metrics for pomegranate trade.
+                  </p>
+                </TooltipContent>
+              </UITooltip>
+            </div>
           </CardHeader>
           <CardContent className="p-0">
             <div className="overflow-x-auto scrollbar-hide">
@@ -487,62 +516,74 @@ const TradeDataSection = () => {
                         <Button variant="ghost" size="sm" onClick={() => handleSort('exportPrice')} className="h-auto p-0 font-bold">
                           Export Price (USD/kg) <ArrowUpDown className="ml-1 h-3 w-3" />
                         </Button>
-                        <Tooltip>
+                        <UITooltip>
                           <TooltipTrigger>
                             <Info className="ml-1 h-3 w-3 text-muted-foreground" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Average export price per kilogram</p>
+                            <p className="font-normal">Average export price per kilogram</p>
                           </TooltipContent>
-                        </Tooltip>
+                        </UITooltip>
                       </div>
                     </TableHead>
-                    <TableHead className="min-w-[120px] bg-muted/50 font-bold">
-                      <span className="flex items-center gap-1">
-                        Total Export Value
-                        <Tooltip>
-                          <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                          <TooltipContent>Total value of exports in USD.</TooltipContent>
-                        </Tooltip>
-                      </span>
+                    <TableHead className="min-w-[140px] bg-muted/50 font-bold">
+                      <div className="flex items-center">
+                        <Button variant="ghost" size="sm" onClick={() => handleSort('exportValue')} className="h-auto p-0 font-bold">
+                          Total Export Value (USD) <ArrowUpDown className="ml-1 h-3 w-3" />
+                        </Button>
+                        <UITooltip>
+                          <TooltipTrigger>
+                            <Info className="ml-1 h-3 w-3 text-muted-foreground" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="font-normal">Total value of exports for the period</p>
+                          </TooltipContent>
+                        </UITooltip>
+                      </div>
                     </TableHead>
                     <TableHead className="min-w-[140px] bg-muted/50 font-bold">
                       <div className="flex items-center">
                         <Button variant="ghost" size="sm" onClick={() => handleSort('importPrice')} className="h-auto p-0 font-bold">
                           Import Price (USD/kg) <ArrowUpDown className="ml-1 h-3 w-3" />
                         </Button>
-                        <Tooltip>
+                        <UITooltip>
                           <TooltipTrigger>
                             <Info className="ml-1 h-3 w-3 text-muted-foreground" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Average import price per kilogram</p>
+                            <p className="font-normal">Average import price per kilogram</p>
                           </TooltipContent>
-                        </Tooltip>
+                        </UITooltip>
                       </div>
                     </TableHead>
-                    <TableHead className="min-w-[120px] bg-muted/50 font-bold">
-                      <span className="flex items-center gap-1">
-                        Total Import Value
-                        <Tooltip>
-                          <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                          <TooltipContent>Total value of imports in USD.</TooltipContent>
-                        </Tooltip>
-                      </span>
+                    <TableHead className="min-w-[140px] bg-muted/50 font-bold">
+                      <div className="flex items-center">
+                        <Button variant="ghost" size="sm" onClick={() => handleSort('importValue')} className="h-auto p-0 font-bold">
+                          Total Import Value (USD) <ArrowUpDown className="ml-1 h-3 w-3" />
+                        </Button>
+                        <UITooltip>
+                          <TooltipTrigger>
+                            <Info className="ml-1 h-3 w-3 text-muted-foreground" />
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p className="font-normal">Total value of imports for the period</p>
+                          </TooltipContent>
+                        </UITooltip>
+                      </div>
                     </TableHead>
                     <TableHead className="min-w-[120px] bg-muted/50 font-bold">
                       <div className="flex items-center">
                         <Button variant="ghost" size="sm" onClick={() => handleSort('growth')} className="h-auto p-0 font-bold">
                           Year-over-Year Growth (%) <ArrowUpDown className="ml-1 h-3 w-3" />
                         </Button>
-                        <Tooltip>
+                        <UITooltip>
                           <TooltipTrigger>
                             <Info className="ml-1 h-3 w-3 text-muted-foreground" />
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Percentage change compared to previous year</p>
+                            <p className="font-normal">Percentage change compared to previous year</p>
                           </TooltipContent>
-                        </Tooltip>
+                        </UITooltip>
                       </div>
                     </TableHead>
                   </TableRow>
@@ -553,9 +594,9 @@ const TradeDataSection = () => {
                       <TableCell>{row.rank}</TableCell>
                       <TableCell className="font-medium">{row.country}</TableCell>
                       <TableCell>{formatCurrency(row.exportPrice)}</TableCell>
-                      <TableCell className="font-semibold">{formatLargeCurrency(row.exportValue)}</TableCell>
+                      <TableCell>{formatLargeCurrency(row.exportValue)}</TableCell>
                       <TableCell>{formatCurrency(row.importPrice)}</TableCell>
-                      <TableCell className="font-semibold">{formatLargeCurrency(row.importValue)}</TableCell>
+                      <TableCell>{formatLargeCurrency(row.importValue)}</TableCell>
                       <TableCell className={row.growth >= 0 ? 'text-green-600 font-semibold' : 'text-red-600 font-semibold'}>
                         {row.growth >= 0 ? '+' : ''}{row.growth.toFixed(1)}%
                       </TableCell>

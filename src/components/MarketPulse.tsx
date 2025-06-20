@@ -164,7 +164,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
             </div>
           <div className="flex items-center gap-4">
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900">
+              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
                 <SelectValue placeholder="Countries: All" />
               </SelectTrigger>
               <SelectContent className="bg-white border-gray-300 z-50">
@@ -198,11 +198,11 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
       <div className="hidden lg:grid lg:grid-cols-3 gap-6">
         {filteredCards.map((card, index) => (
           <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" onClick={() => setSelectedBlog(card)}>
-            <div className="mb-4">
+            <div className="relative">
               <img 
                 src={card.image} 
                 alt={card.title}
-                className="w-full h-full object-cover"
+                className="w-full h-56 object-cover"
               />
               <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-medium">
                 {card.category}
@@ -257,11 +257,11 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
         >
           {filteredCards.map((card, index) => (
             <Card key={index} className="flex-shrink-0 w-80 sm:w-96 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer snap-center" onClick={() => setSelectedBlog(card)}>
-              <div className="relative h-56">
+              <div className="relative">
                 <img 
                   src={card.image} 
                   alt={card.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-56 object-cover"
                 />
                 <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-medium">
                   {card.category}
@@ -303,11 +303,11 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
           {selectedBlog && (
             <div className="space-y-6">
               {/* Hero Image */}
-              <div className="relative rounded-lg overflow-hidden h-64 md:h-80 lg:h-96">
+              <div className="relative rounded-lg overflow-hidden">
                 <img 
                   src={selectedBlog.image}
                   alt={selectedBlog.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-64 md:h-80 object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
               </div>

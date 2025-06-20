@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import SupplierNetworkModal from './SupplierNetworkModal';
-import { toast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 
 const DashboardHeader = () => {
   const navigate = useNavigate();
@@ -21,8 +21,9 @@ const DashboardHeader = () => {
   const [selectedRegion, setSelectedRegion] = useState('Global');
   const [activeSection, setActiveSection] = useState('overview');
   const [isSupplierModalOpen, setIsSupplierModalOpen] = useState(false);
-  const [subscriberEmail, setSubscriberEmail] = useState('');
-  const [isSubscribing, setIsSubscribing] = useState(false);
+  const { toast } = useToast();
+  const [subscribeEmail, setSubscribeEmail] = useState('');
+  const [subscribeLoading, setSubscribeLoading] = useState(false);
   
   const navItems = [
     { name: 'Overview', path: '/', sectionId: 'overview' },
@@ -78,59 +79,59 @@ const DashboardHeader = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [location.pathname]);
 
-  const handleSubscribe = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!subscriberEmail) {
+  const handleSubscribe = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!subscribeEmail) {
       toast({
-        title: "Missing Email",
-        description: "Please enter your email address.",
-        variant: "destructive"
+        title: 'Email Required',
+        description: 'Please enter your email address.',
+        variant: 'destructive',
       });
       return;
     }
+    // Basic email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(subscriberEmail)) {
+    if (!emailRegex.test(subscribeEmail)) {
       toast({
-        title: "Invalid Email",
-        description: "Please enter a valid email address.",
-        variant: "destructive"
+        title: 'Invalid Email',
+        description: 'Please enter a valid email address.',
+        variant: 'destructive',
       });
       return;
     }
-    setIsSubscribing(true);
+    setSubscribeLoading(true);
     try {
-      const response = await fetch('https://script.google.com/macros/s/AKfycbwDFV5WlUTAXE2RgfqN9t8JQpZGdRpxJaD0yp1ptZ50oUEYmm_AwJ_qDGfVsEmXjpVU/exec', {
+      const response = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type: 'subscriber',
-          email: subscriberEmail,
+          access_key: 'c74cd7ff-2723-44af-b9e6-fcd79504b4b4',
+          email: subscribeEmail,
+          subject: 'New Email Subscription',
         }),
       });
-      if (response.ok) {
+      const result = await response.json();
+      if (result.success) {
         toast({
-          title: "Subscribed!",
-          description: "You have been added to our email list.",
-          variant: "default"
+          title: 'Subscribed!',
+          description: 'You have been subscribed for email updates.',
         });
-        setSubscriberEmail('');
+        setSubscribeEmail('');
       } else {
         toast({
-          title: "Subscription Failed",
-          description: "There was a problem subscribing. Please try again later.",
-          variant: "destructive"
+          title: 'Subscription Failed',
+          description: result.message || 'There was an error subscribing. Please try again.',
+          variant: 'destructive',
         });
       }
     } catch (error) {
       toast({
-        title: "Subscription Error",
-        description: "There was a problem subscribing. Please try again later.",
-        variant: "destructive"
+        title: 'Subscription Failed',
+        description: 'There was an error subscribing. Please try again.',
+        variant: 'destructive',
       });
     } finally {
-      setIsSubscribing(false);
+      setSubscribeLoading(false);
     }
   };
 
@@ -144,7 +145,7 @@ const DashboardHeader = () => {
               <img 
                 src="/lovable-uploads/43909c87-24d3-4214-b746-3b8486e8be80.png" 
                 alt="PomIntel Logo" 
-                className="w-20 h-20"
+                className="w-8 h-8"
               />
             </div>
             
@@ -311,17 +312,26 @@ const DashboardHeader = () => {
             <div className="px-4 mb-4">
               <div className="bg-muted/30 p-4 rounded-lg">
                 <h3 className="text-sm font-medium mb-3">Subscribe for email updates:</h3>
-                <div className="space-y-2">
-                  <Input 
-                    placeholder="Enter your email" 
+                <form
+                  className="space-y-2"
+                  onSubmit={handleSubscribe}
+                >
+                  <Input
+                    placeholder="Enter your email"
                     className="w-full bg-background"
-                    value={subscriberEmail}
-                    onChange={(e) => setSubscriberEmail(e.target.value)}
+                    value={subscribeEmail}
+                    onChange={e => setSubscribeEmail(e.target.value)}
+                    type="email"
+                    required
                   />
-                  <Button className="w-full bg-black text-white hover:bg-black/90" onClick={handleSubscribe}>
-                    Subscribe
+                  <Button
+                    className="w-full bg-black text-white hover:bg-black/90"
+                    type="submit"
+                    disabled={subscribeLoading}
+                  >
+                    {subscribeLoading ? 'Subscribing...' : 'Subscribe'}
                   </Button>
-                </div>
+                </form>
               </div>
             </div>
 
@@ -365,20 +375,31 @@ const DashboardHeader = () => {
       {/* Email Subscription Bar - Hidden on Mobile */}
       <div className="bg-black py-3 hidden md:block">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
+          <form
+            className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4"
+            onSubmit={handleSubscribe}
+          >
             <span className="text-white text-sm font-medium">
               Subscribe for email updates:
             </span>
             <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
-              <Input 
-                placeholder="Enter your email" 
+              <Input
+                placeholder="Enter your email"
                 className="w-full sm:w-80 bg-white/10 border-white/20 text-white placeholder:text-white/70 h-9"
+                value={subscribeEmail}
+                onChange={e => setSubscribeEmail(e.target.value)}
+                type="email"
+                required
               />
-              <Button className="w-full sm:w-auto bg-white text-black hover:bg-white/90 h-9">
-                Subscribe
+              <Button
+                className="w-full sm:w-auto bg-white text-black hover:bg-white/90 h-9"
+                type="submit"
+                disabled={subscribeLoading}
+              >
+                {subscribeLoading ? 'Subscribing...' : 'Subscribe'}
               </Button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
       

@@ -9,7 +9,6 @@ const TradeSnapshot = () => {
     { label: 'Total Export Volume', value: '5,889', unit: 'thousand tons', icon: '📦' },
     { label: 'Total Import Volume', value: '4,776', unit: 'thousand tons', icon: '🚢' },
     { label: 'Active Countries Tracked', value: '5', unit: 'countries', icon: '🌍' },
-    { label: 'Average Export Price', value: '$1.15/kg', unit: 'Global Weighted Avg', icon: '💲', tooltip: 'Weighted average export price per kilogram across all tracked countries.' },
   ];
 
   const additionalStats = [
@@ -20,7 +19,7 @@ const TradeSnapshot = () => {
 
   return (
     <TooltipProvider>
-      <div className="max-w-screen-lg mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-2 mb-8">
           <h1 className="text-3xl font-bold">Trade Snapshot</h1>
           <Tooltip>
@@ -29,7 +28,7 @@ const TradeSnapshot = () => {
             </TooltipTrigger>
             <TooltipContent>
               <p className="text-sm max-w-xs">
-                Overview of global pomegranate trade volumes, key market players, and trade balance metrics. Data compiled from international trade databases and customs records.
+                Executive summary of global pomegranate trade ecosystem including supply-demand dynamics, regional market concentrations, trade route analysis, and competitive landscape insights.
               </p>
             </TooltipContent>
           </Tooltip>
@@ -39,21 +38,7 @@ const TradeSnapshot = () => {
         {tradeSnapshot.map((item, index) => (
           <Card key={index} className="text-center p-6 hover:shadow-lg transition-shadow">
             <div className="text-3xl mb-3">{item.icon}</div>
-            <div className="flex items-center justify-center gap-1 mb-2">
-              <h3 className="text-lg font-semibold text-muted-foreground">{item.label}</h3>
-              <Tooltip>
-                <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                <TooltipContent>
-                  {item.tooltip ? item.tooltip :
-                    item.label === 'Top Exporter' && 'Country with the highest export volume.' ||
-                    item.label === 'Top Importer' && 'Country with the highest import volume.' ||
-                    item.label === 'Total Export Volume' && 'Total quantity exported (thousand tons).' ||
-                    item.label === 'Total Import Volume' && 'Total quantity imported (thousand tons).' ||
-                    item.label === 'Active Countries Tracked' && 'Number of countries included in trade tracking.'
-                  }
-                </TooltipContent>
-              </Tooltip>
-            </div>
+            <h3 className="text-lg font-semibold text-muted-foreground mb-2">{item.label}</h3>
             <p className="text-2xl font-bold">{item.value}</p>
             {item.unit && (
               <p className="text-sm text-muted-foreground mt-1">{item.unit}</p>
@@ -70,17 +55,7 @@ const TradeSnapshot = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {additionalStats.map((stat, index) => (
               <div key={index} className="text-center p-4 border rounded-lg">
-                <div className="flex items-center justify-center gap-1 mb-2">
-                  <h4 className="text-sm font-medium text-muted-foreground">{stat.label}</h4>
-                  <Tooltip>
-                    <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-                    <TooltipContent>
-                      {stat.label === 'Trade Balance' && 'Difference between total exports and imports.'}
-                      {stat.label === 'Market Coverage' && 'Share of global market covered by tracked countries.'}
-                      {stat.label === 'Growth Rate' && 'Year-over-year change in trade volume.'}
-                    </TooltipContent>
-                  </Tooltip>
-                </div>
+                <h4 className="text-sm font-medium text-muted-foreground mb-2">{stat.label}</h4>
                 <p className={`text-xl font-bold ${
                   stat.trend === 'positive' ? 'text-green-600' : 
                   stat.trend === 'negative' ? 'text-red-600' : 'text-blue-600'

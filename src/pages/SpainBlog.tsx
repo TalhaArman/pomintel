@@ -10,7 +10,7 @@ const SpainBlog = () => {
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
-      <main className="max-w-screen-lg mx-auto px-4 py-4 lg:py-6 mt-[160px] lg:mt-[180px]">
+      <main className="container mx-auto px-4 py-4 lg:py-6 mt-[160px] lg:mt-[180px]">
         {/* Back Button */}
         <Button 
           variant="ghost" 

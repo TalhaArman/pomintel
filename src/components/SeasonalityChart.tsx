@@ -9,7 +9,6 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuCheckboxItem,
 } from '@/components/ui/dropdown-menu';
 
 const SeasonalityChart = () => {
@@ -81,6 +80,7 @@ const SeasonalityChart = () => {
     return null;
   };
 
+
   const handleCountryToggle = (countryKey: string) => {
     setVisibleCountries(prev => ({
       ...prev,
@@ -121,45 +121,45 @@ const SeasonalityChart = () => {
                 </TooltipContent>
               </UITooltip>
             </div>
-          <div className="flex gap-2">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
-                  Countries: {getSelectedCountriesText()}
-                  <ChevronDown className="w-3 h-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-36 bg-background border border-border shadow-lg z-50">
-                {countries.map((country) => (
+            <div className="flex gap-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                    Countries: {getSelectedCountriesText()}
+                    <ChevronDown className="w-3 h-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-36 bg-background border border-border shadow-lg z-50">
+                  {countries.map((country) => (
+                    <DropdownMenuItem 
+                      key={country.key}
+                      onClick={() => handleCountryToggle(country.key)}
+                      className="cursor-pointer hover:bg-muted"
+                    >
+                      {country.name}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                    Select All/None
+                    <ChevronDown className="w-3 h-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent className="w-32 bg-background border border-border shadow-lg z-50">
                   <DropdownMenuItem 
-                    key={country.key}
-                    onClick={() => handleCountryToggle(country.key)}
+                    onClick={handleSelectAll}
                     className="cursor-pointer hover:bg-muted"
                   >
-                    {country.name}
+                    {Object.values(visibleCountries).every(Boolean) ? 'Deselect All' : 'Select All'}
                   </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
-                  Select All/None
-                  <ChevronDown className="w-3 h-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-32 bg-background border border-border shadow-lg z-50">
-                <DropdownMenuItem 
-                  onClick={handleSelectAll}
-                  className="cursor-pointer hover:bg-muted"
-                >
-                  {Object.values(visibleCountries).every(Boolean) ? 'Deselect All' : 'Select All'}
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
           </div>
-        </div>
       </CardHeader>
       <CardContent>
         <div className="mb-4">

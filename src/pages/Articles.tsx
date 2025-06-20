@@ -301,7 +301,7 @@ const Articles = () => {
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
-      <main className="max-w-screen-lg mx-auto px-4 py-4 lg:py-6 mt-[160px] lg:mt-[180px]">
+      <main className="container mx-auto px-4 py-4 lg:py-6 mt-[160px] lg:mt-[180px]">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-4">Pomegranate Industry Articles</h1>
           <p className="text-muted-foreground">In-depth analysis and insights from global pomegranate markets</p>
@@ -378,11 +378,11 @@ const Articles = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="mb-6 h-64 md:h-80 lg:h-96">
+            <div className="mb-6">
               <img 
                 src={articles[0].image} 
                 alt={articles[0].title}
-                className="w-full h-full object-cover rounded-lg"
+                className="w-full h-64 object-cover rounded-lg"
               />
             </div>
             <div 

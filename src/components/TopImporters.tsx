@@ -27,33 +27,26 @@ const TopImporters = () => {
     </div>
   );
 
-  // Helper to format volume
-  const formatVolume = (value: number) => {
-    if (value >= 1000000) return (value / 1000000).toFixed(2) + 'M tons';
-    if (value >= 1000) return value.toLocaleString() + 'K tons';
-    return value + ' tons';
-  };
-
   return (
     <TooltipProvider>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-2 mb-8">
-          <h1 className="text-3xl font-bold flex items-center gap-1">Top Importers
-            <Tooltip>
-              <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-              <TooltipContent>Countries with the highest pomegranate import volumes.</TooltipContent>
-            </Tooltip>
-          </h1>
+          <h1 className="text-3xl font-bold">Top Importers</h1>
+          <Tooltip>
+            <TooltipTrigger>
+              <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="text-sm max-w-xs">
+                Top importing nations ranked by annual pomegranate volumes. Includes market share analysis, trade growth rates, and consumption patterns derived from customs data and agricultural trade databases.
+              </p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       
       <Card className="max-w-2xl mx-auto">
         <CardHeader>
-          <CardTitle className="text-xl font-semibold flex items-center gap-1">Global Import Leaders
-            <Tooltip>
-              <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-              <TooltipContent>Top countries by import market share.</TooltipContent>
-            </Tooltip>
-          </CardTitle>
+          <CardTitle className="text-xl font-semibold">Global Import Leaders</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {topImporters.map((item, index) => (
@@ -66,7 +59,7 @@ const TopImporters = () => {
             >
               <div>
                 <span className="text-lg font-medium">{item.country}</span>
-                <p className="text-sm text-muted-foreground">Volume: {formatVolume(item.volume)}</p>
+                <p className="text-sm text-muted-foreground">Volume: {item.volume}K tons</p>
               </div>
               <div className="flex items-center space-x-4">
                 <ProgressBar percentage={item.percentage} color={item.color} />

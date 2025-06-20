@@ -31,12 +31,7 @@ const YOYGrowth = () => {
     <TooltipProvider>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center gap-2 mb-8">
-          <h1 className="text-3xl font-bold flex items-center gap-1">Year-over-Year Growth
-            <Tooltip>
-              <TooltipTrigger><Info className="w-4 h-4 text-muted-foreground hover:text-foreground cursor-help" /></TooltipTrigger>
-              <TooltipContent>Annual percentage change in pomegranate trade volume.</TooltipContent>
-            </Tooltip>
-          </h1>
+          <h1 className="text-3xl font-bold">Year-over-Year Growth</h1>
           <Tooltip>
             <TooltipTrigger>
               <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
