@@ -145,7 +145,7 @@ const DashboardHeader = () => {
               <img 
                 src="/lovable-uploads/43909c87-24d3-4214-b746-3b8486e8be80.png" 
                 alt="PomIntel Logo" 
-                className="w-8 h-8"
+                className="w-20 h-20"
               />
             </div>
             
