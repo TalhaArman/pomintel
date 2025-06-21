@@ -121,7 +121,7 @@ const SeasonalityChart = () => {
                 </TooltipContent>
               </UITooltip>
             </div>
-            <div className="flex gap-2">
+            <div className="flex overflow-x-scroll gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
