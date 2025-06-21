@@ -202,7 +202,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
               <img 
                 src={card.image} 
                 alt={card.title}
-                className="w-full h-56 object-cover"
+                className="w-full h-full object-cover"
               />
               <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-medium">
                 {card.category}
@@ -261,7 +261,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
                 <img 
                   src={card.image} 
                   alt={card.title}
-                  className="w-full h-56 object-cover"
+                  className="w-full h-full object-cover"
                 />
                 <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-medium">
                   {card.category}
