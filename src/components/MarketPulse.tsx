@@ -164,7 +164,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
             </div>
           <div className="flex items-center gap-4">
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
+              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
                 <SelectValue placeholder="Countries: All" />
               </SelectTrigger>
               <SelectContent className="bg-white border-gray-300 z-50">
