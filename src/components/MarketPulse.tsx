@@ -185,7 +185,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
             <Button 
               variant="outline" 
               size="sm" 
-              className="text-xs sm:text-sm hidden sm:block rounded-full px-4 py-2"
+              className="text-xs sm:text-sm hidden sm:block rounded-lg px-4 py-2"
               onClick={() => window.open('/articles', '_blank')}
             >
               View All
