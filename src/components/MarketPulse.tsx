@@ -16,7 +16,7 @@ const MarketPulse = () => {
       subtitle: "Peru's Pomegranate Push: A Strategic Climb in Global Trade",
       description: "Export structure that accompanies managers and businessmen to successfully clarify and identify those opportunities in diverse markets in the global pomegranate market.",
       date: "JUN 5, 2024",
-      image: "/lovable-uploads/3bcefcfd-4de2-43a7-986d-40333531df8a.png",
+      image: "/lovable-uploads/c4a1dffa-d9ce-4103-b126-91b9b627c9ee.png",
       category: "Peru",
       country: "Peru",
       fullContent: {
@@ -83,7 +83,7 @@ Spain doesn't aim to compete through volume—but rather through quality, brandi
       subtitle: "Turkey's Pomegranate Legacy: Between Tradition and Trade Expansion",
       description: "Digitally empowering production of pomegranates in the world's third-largest producer, while keeping close ties to trade patterns and leverage dating back to the Hittite Empire.",
       date: "JUN 5, 2024", 
-      image: "/lovable-uploads/c4a1dffa-d9ce-4103-b126-91b9b627c9ee.png",
+      image: "/lovable-uploads/3bcefcfd-4de2-43a7-986d-40333531df8a.png",
       category: "Turkey",
       country: "Turkey",
       fullContent: {
