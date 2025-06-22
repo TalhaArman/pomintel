@@ -227,7 +227,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
               <Button
                 variant="outline"
                 size="icon"
-                className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
+                className="w-10 h-5 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
                 onClick={scrollLeft}
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -237,7 +237,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
               <Button
                 variant="outline"
                 size="icon"
-                className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
+                className="w-10 h-5 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
                 onClick={scrollRight}
               >
                 <ChevronRight className="w-5 h-5" />
