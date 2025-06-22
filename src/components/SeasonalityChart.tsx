@@ -17,7 +17,7 @@ const SeasonalityChart = () => {
     spain: true,
     southAfrica: true,
     usa: true,
-    turkey: true,
+    turkey: true,TooltipTrigger
   });
 
   const countries = [
@@ -112,7 +112,7 @@ const SeasonalityChart = () => {
               <CardTitle>Seasonality</CardTitle>
               <UITooltip>
                 <TooltipTrigger>
-                  <Info className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+                  <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="text-sm max-w-xs">
