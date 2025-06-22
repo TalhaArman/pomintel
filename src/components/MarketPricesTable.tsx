@@ -192,7 +192,7 @@ const MarketPricesTable = () => {
 
   return (
     <TooltipProvider>
-      <Card className="mb-6">
+      <Card className="mb-6 mt-6">
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
             <div className="flex items-center gap-2">
