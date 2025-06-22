@@ -199,7 +199,7 @@ const MarketPricesTable = () => {
               <CardTitle>Market Prices</CardTitle>
               <Tooltip>
                 <TooltipTrigger>
-                  <Info className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+                  <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="text-sm max-w-xs">
