@@ -212,7 +212,7 @@ const MarketPricesTable = () => {
             <div className="flex justify-between items-center gap-2 sm:justify-start">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border">
                     Status: {statusFilter}
                     <ChevronDown className="w-3 h-3" />
                   </Button>
@@ -232,7 +232,7 @@ const MarketPricesTable = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border">
                     Countries: {countryFilter}
                     <ChevronDown className="w-3 h-3" />
                   </Button>
@@ -253,7 +253,7 @@ const MarketPricesTable = () => {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="text-xs sm:text-sm hidden md:flex items-center gap-1">
+                <Button variant="ghost" size="sm" className="text-xs sm:text-sm hidden md:flex items-center gap-1 border">
                   Time Range: {timeRange}
                   <ChevronDown className="w-3 h-3" />
                 </Button>
