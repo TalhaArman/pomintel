@@ -412,7 +412,7 @@ const TradeDataSection = () => {
                   tickLine={{ stroke: '#666' }}
                 />
                 <YAxis 
-                  label={{ value: 'Trade Volume Legend', angle: -90, position: 'insideLeft',  dx: 5,   dy: 0 }}
+                  label={{ value: 'Trade Volume Legend', angle: -90, dx: 5, dy: 0 }}
                   tick={{ fontSize: 11 }}
                   tickFormatter={(value) => value.toLocaleString()}
                 />
