@@ -162,20 +162,7 @@ const SeasonalityChart = () => {
           </div>
       </CardHeader>
       <CardContent>
-        <div className="mb-4">
-          <div className="text-sm text-muted-foreground mb-2">Harvest Activity Level (%)</div>
-          <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-            {countries.map((country) => (
-              <div key={country.key} className="flex items-center gap-2">
-                <div 
-                  className="w-4 h-4 rounded" 
-                  style={{ backgroundColor: country.color }}
-                />
-                <span className="text-sm font-medium">{country.name}</span>
-              </div>
-            ))}
-          </div>
-        </div>
+   
         
         <ResponsiveContainer width="100%" height={450}>
           <BarChart 
