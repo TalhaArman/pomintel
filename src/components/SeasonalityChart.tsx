@@ -124,7 +124,7 @@ const SeasonalityChart = () => {
             <div className="flex overflow-x-auto scrollbar-hide gap-2">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border">
                     Countries: {getSelectedCountriesText()}
                     <ChevronDown className="w-3 h-3" />
                   </Button>
@@ -144,7 +144,7 @@ const SeasonalityChart = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border">
                     Select All/None
                     <ChevronDown className="w-3 h-3" />
                   </Button>
