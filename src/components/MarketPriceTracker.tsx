@@ -272,15 +272,15 @@ const MarketPriceTracker = () => {
       {/* Horizontal Scrolling Container */}
       <div className="relative">
         <div 
-          className="marquee-scroll flex overflow-x-auto gap-4 pb-4 scroll-smooth scrollbar-hide"
+          className="marquee-scroll flex overflow-x-auto gap-3 sm:gap-4 pb-4 scroll-smooth scrollbar-hide"
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
           {priceData.map((item, index) => (
             <div
               key={index}
-              className="relative flex-shrink-0 w-64 bg-background border border-border rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+              className="relative flex-shrink-0 w-72 sm:w-80 md:w-64 bg-background border border-border rounded-lg p-3 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
             >
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex justify-between items-start mb-2 sm:mb-3">
                 <div>
                   <h3 className="text-sm font-medium text-foreground mb-1">Pomegranate in {item.country}</h3>
                   <p className="text-xs text-muted-foreground">Last updated: {item.lastUpdated}</p>
@@ -291,8 +291,8 @@ const MarketPriceTracker = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
-                    <span className="text-2xl font-bold text-foreground">${item.price}/kg</span>
-                    <span className="text-xs text-muted-foreground">Previous: ${item.previousPrice}</span>
+                    <span className="text-xl sm:text-2xl font-bold text-foreground">${item.price.toFixed(2)}/kg</span>
+                    <span className="text-xs text-muted-foreground">Previous: ${item.previousPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     {item.isPositive ? (
@@ -317,9 +317,9 @@ const MarketPriceTracker = () => {
           {priceData.map((item, index) => (
             <div
               key={`duplicate-${index}`}
-              className="relative flex-shrink-0 w-64 bg-background border border-border rounded-lg p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
+              className="relative flex-shrink-0 w-72 sm:w-80 md:w-64 bg-background border border-border rounded-lg p-3 sm:p-4 shadow-sm hover:shadow-md transition-all duration-300 hover:scale-105"
             >
-              <div className="flex justify-between items-start mb-3">
+              <div className="flex justify-between items-start mb-2 sm:mb-3">
                 <div>
                   <h3 className="text-sm font-medium text-foreground mb-1">Pomegranate in {item.country}</h3>
                   <p className="text-xs text-muted-foreground">Last updated: {item.lastUpdated}</p>
@@ -330,8 +330,8 @@ const MarketPriceTracker = () => {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <div className="flex flex-col">
-                    <span className="text-2xl font-bold text-foreground">${item.price}/kg</span>
-                    <span className="text-xs text-muted-foreground">Previous: ${item.previousPrice}</span>
+                    <span className="text-xl sm:text-2xl font-bold text-foreground">${item.price.toFixed(2)}/kg</span>
+                    <span className="text-xs text-muted-foreground">Previous: ${item.previousPrice.toFixed(2)}</span>
                   </div>
                   <div className="flex items-center space-x-1">
                     {item.isPositive ? (

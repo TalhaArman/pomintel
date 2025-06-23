@@ -145,39 +145,46 @@ const DashboardHeader = () => {
               <img 
                 src="/lovable-uploads/43909c87-24d3-4214-b746-3b8486e8be80.png" 
                 alt="PomIntel Logo" 
-                className="w-8 h-8"
+                className="w-20 h-20"
               />
             </div>
             
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex space-x-8">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => {
-                    if (location.pathname === '/' && item.sectionId) {
-                      const element = document.getElementById(item.sectionId);
-                      if (element) {
-                        const headerHeight = 200; // Account for fixed header + subscription bar
-                        const elementPosition = element.offsetTop - headerHeight;
-                        window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+              {navItems.map((item) => {
+                const isHomePage = location.pathname === '/';
+                const isActive = isHomePage 
+                  ? activeSection === item.sectionId 
+                  : location.pathname === item.path;
+
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      if (isHomePage && item.sectionId) {
+                        const element = document.getElementById(item.sectionId);
+                        if (element) {
+                          const headerHeight = 200; // Account for fixed header + subscription bar
+                          const elementPosition = element.offsetTop - headerHeight;
+                          window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+                        }
+                      } else {
+                        navigate(item.path);
                       }
-                    } else {
-                      navigate(item.path);
-                    }
-                  }}
-                  className={`text-sm font-medium transition-colors relative pb-4 ${
-                    (location.pathname === item.path) || (location.pathname === '/' && activeSection === item.sectionId)
-                      ? 'text-foreground' 
-                      : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                >
-                  {item.name}
-                  {((location.pathname === item.path) || (location.pathname === '/' && activeSection === item.sectionId)) && (
-                    <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
-                  )}
-                </button>
-              ))}
+                    }}
+                    className={`text-sm font-medium transition-colors relative pb-4 ${
+                      isActive
+                        ? 'text-foreground' 
+                        : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                  >
+                    {item.name}
+                    {isActive && (
+                      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-black" />
+                    )}
+                  </button>
+                );
+              })}
             </nav>
           </div>
           

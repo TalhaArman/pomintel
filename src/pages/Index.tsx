@@ -11,7 +11,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <DashboardHeader />
-      <main className="container mx-auto px-4 py-4 lg:py-6 mt-[160px] lg:mt-[180px]">
+      <main className="container mx-auto px-3 sm:px-4 py-3 sm:py-4 lg:py-6 mt-[160px] lg:mt-[180px]">
         <div id="overview">
           <MarketPriceTracker />
           <OverviewSection />

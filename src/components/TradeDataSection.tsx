@@ -412,7 +412,7 @@ const TradeDataSection = () => {
                   tickLine={{ stroke: '#666' }}
                 />
                 <YAxis 
-                  label={{ value: 'Trade Volume (tons)', angle: -90, position: 'insideLeft' }}
+                  label={{ value: 'Trade Volume Legend', angle: -90, dx:-30, dy: 0 }}
                   tick={{ fontSize: 11 }}
                   tickFormatter={(value) => value.toLocaleString()}
                 />
@@ -486,7 +486,7 @@ const TradeDataSection = () => {
               <CardTitle>Country Trade Performance</CardTitle>
               <UITooltip>
                 <TooltipTrigger>
-                  <Info className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+                  <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="text-sm max-w-xs">

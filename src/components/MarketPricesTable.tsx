@@ -192,14 +192,14 @@ const MarketPricesTable = () => {
 
   return (
     <TooltipProvider>
-      <Card className="mb-6">
+      <Card className="mb-6 mt-6">
         <CardHeader>
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0">
             <div className="flex items-center gap-2">
               <CardTitle>Market Prices</CardTitle>
               <Tooltip>
                 <TooltipTrigger>
-                  <Info className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+                  <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="text-sm max-w-xs">
@@ -212,7 +212,7 @@ const MarketPricesTable = () => {
             <div className="flex justify-between items-center gap-2 sm:justify-start">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border">
                     Status: {statusFilter}
                     <ChevronDown className="w-3 h-3" />
                   </Button>
@@ -232,7 +232,7 @@ const MarketPricesTable = () => {
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border">
                     Countries: {countryFilter}
                     <ChevronDown className="w-3 h-3" />
                   </Button>
@@ -253,7 +253,7 @@ const MarketPricesTable = () => {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="text-xs sm:text-sm hidden md:flex items-center gap-1">
+                <Button variant="ghost" size="sm" className="text-xs sm:text-sm hidden md:flex items-center gap-1 border">
                   Time Range: {timeRange}
                   <ChevronDown className="w-3 h-3" />
                 </Button>

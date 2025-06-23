@@ -12,13 +12,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 
 const SeasonalityChart = () => {
-  const [visibleCountries, setVisibleCountries] = useState({
-    peru: true,
-    spain: true,
-    southAfrica: true,
-    usa: true,
-    turkey: true,
-  });
+  const [selectedCountry, setSelectedCountry] = useState('all');
 
   const countries = [
     { key: 'peru', name: 'Peru', color: '#dc2626' },
@@ -80,39 +74,24 @@ const SeasonalityChart = () => {
     return null;
   };
 
-
-  const handleCountryToggle = (countryKey: string) => {
-    setVisibleCountries(prev => ({
-      ...prev,
-      [countryKey]: !prev[countryKey as keyof typeof prev]
-    }));
-  };
-
-  const handleSelectAll = () => {
-    const allSelected = Object.values(visibleCountries).every(Boolean);
-    const newState = allSelected ? 
-      { peru: false, spain: false, southAfrica: false, usa: false, turkey: false } :
-      { peru: true, spain: true, southAfrica: true, usa: true, turkey: true };
-    setVisibleCountries(newState);
-  };
-
-  const getSelectedCountriesText = () => {
-    const selectedCount = Object.values(visibleCountries).filter(Boolean).length;
-    if (selectedCount === countries.length) return 'All';
-    if (selectedCount === 0) return 'None';
-    return `${selectedCount} selected`;
+  const getSelectedCountryName = () => {
+    if (selectedCountry === 'all') {
+      return 'All Countries';
+    }
+    const country = countries.find(c => c.key === selectedCountry);
+    return country ? country.name : 'All Countries';
   };
 
   return (
     <TooltipProvider>
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 sm:gap-0">
             <div className="flex items-center gap-2">
               <CardTitle>Seasonality</CardTitle>
               <UITooltip>
                 <TooltipTrigger>
-                  <Info className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
+                  <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
                 </TooltipTrigger>
                 <TooltipContent>
                   <p className="text-sm max-w-xs">
@@ -121,19 +100,25 @@ const SeasonalityChart = () => {
                 </TooltipContent>
               </UITooltip>
             </div>
-            <div className="flex gap-2">
+            <div className="flex overflow-x-auto scrollbar-hide gap-2 w-full sm:w-auto">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
-                    Countries: {getSelectedCountriesText()}
+                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border w-full sm:w-auto">
+                    Country: {getSelectedCountryName()}
                     <ChevronDown className="w-3 h-3" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent className="w-36 bg-background border border-border shadow-lg z-50">
+                  <DropdownMenuItem
+                    onClick={() => setSelectedCountry('all')}
+                    className="cursor-pointer hover:bg-muted"
+                  >
+                    All Countries
+                  </DropdownMenuItem>
                   {countries.map((country) => (
                     <DropdownMenuItem 
                       key={country.key}
-                      onClick={() => handleCountryToggle(country.key)}
+                      onClick={() => setSelectedCountry(country.key)}
                       className="cursor-pointer hover:bg-muted"
                     >
                       {country.name}
@@ -141,43 +126,29 @@ const SeasonalityChart = () => {
                   ))}
                 </DropdownMenuContent>
               </DropdownMenu>
-
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1">
-                    Select All/None
-                    <ChevronDown className="w-3 h-3" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent className="w-32 bg-background border border-border shadow-lg z-50">
-                  <DropdownMenuItem 
-                    onClick={handleSelectAll}
-                    className="cursor-pointer hover:bg-muted"
-                  >
-                    {Object.values(visibleCountries).every(Boolean) ? 'Deselect All' : 'Select All'}
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
             </div>
           </div>
       </CardHeader>
       <CardContent>
-        <div className="mb-4">
-          <div className="text-sm text-muted-foreground mb-2">Harvest Activity Level (%)</div>
-          <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
-            {countries.map((country) => (
-              <div key={country.key} className="flex items-center gap-2">
-                <div 
-                  className="w-4 h-4 rounded" 
-                  style={{ backgroundColor: country.color }}
-                />
-                <span className="text-sm font-medium">{country.name}</span>
-              </div>
-            ))}
-          </div>
+   {/*
+  <div className="mb-4">
+    <div className="text-sm text-muted-foreground mb-2">Harvest Activity Level (%)</div>
+    <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+      {countries.map((country) => (
+        <div key={country.key} className="flex items-center gap-2">
+          <div 
+            className="w-4 h-4 rounded" 
+            style={{ backgroundColor: country.color }}
+          />
+          <span className="text-sm font-medium">{country.name}</span>
         </div>
+      ))}
+    </div>
+  </div>
+*/}
+
         
-        <ResponsiveContainer width="100%" height={450}>
+        <ResponsiveContainer width="100%" height={300} className="sm:h-[450px]">
           <BarChart 
             data={seasonalData} 
             margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
@@ -199,7 +170,7 @@ const SeasonalityChart = () => {
               iconType="rect"
             />
             {countries.map((country) => 
-              visibleCountries[country.key as keyof typeof visibleCountries] && (
+              (selectedCountry === 'all' || selectedCountry === country.key) && (
                 <Bar 
                   key={country.key}
                   dataKey={country.key} 
@@ -267,7 +238,7 @@ const SeasonalityChart = () => {
           </div>
           
           {/* Season Legend */}
-          <div className="lg:col-span-2 flex justify-center space-x-8 text-sm mt-2">
+          <div className="lg:col-span-2 flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-sm mt-2">
             <div className="flex items-center space-x-2">
               <div className="w-3 h-3 bg-green-500 rounded animate-pulse"></div>
               <span className="text-muted-foreground">Peak Season</span>

@@ -16,7 +16,7 @@ const MarketPulse = () => {
       subtitle: "Peru's Pomegranate Push: A Strategic Climb in Global Trade",
       description: "Export structure that accompanies managers and businessmen to successfully clarify and identify those opportunities in diverse markets in the global pomegranate market.",
       date: "JUN 5, 2024",
-      image: "/lovable-uploads/3bcefcfd-4de2-43a7-986d-40333531df8a.png",
+      image: "/lovable-uploads/c4a1dffa-d9ce-4103-b126-91b9b627c9ee.png",
       category: "Peru",
       country: "Peru",
       fullContent: {
@@ -83,7 +83,7 @@ Spain doesn't aim to compete through volume—but rather through quality, brandi
       subtitle: "Turkey's Pomegranate Legacy: Between Tradition and Trade Expansion",
       description: "Digitally empowering production of pomegranates in the world's third-largest producer, while keeping close ties to trade patterns and leverage dating back to the Hittite Empire.",
       date: "JUN 5, 2024", 
-      image: "/lovable-uploads/c4a1dffa-d9ce-4103-b126-91b9b627c9ee.png",
+      image: "/lovable-uploads/3bcefcfd-4de2-43a7-986d-40333531df8a.png",
       category: "Turkey",
       country: "Turkey",
       fullContent: {
@@ -164,7 +164,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
             </div>
           <div className="flex items-center gap-4">
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-full px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
+              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
                 <SelectValue placeholder="Countries: All" />
               </SelectTrigger>
               <SelectContent className="bg-white border-gray-300 z-50">
@@ -185,7 +185,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
             <Button 
               variant="outline" 
               size="sm" 
-              className="text-xs sm:text-sm hidden sm:block rounded-full px-4 py-2"
+              className="text-xs sm:text-sm hidden sm:block rounded-lg px-4 py-2"
               onClick={() => window.open('/articles', '_blank')}
             >
               View All
@@ -202,9 +202,9 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
               <img 
                 src={card.image} 
                 alt={card.title}
-                className="w-full h-56 object-cover"
+                className="w-full h-full object-cover"
               />
-              <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+              <div className="absolute top-3 right-3 bg-black text-white px-3 py-1 rounded-lg text-xs font-medium">
                 {card.category}
               </div>
             </div>
@@ -227,7 +227,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
               <Button
                 variant="outline"
                 size="icon"
-                className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
+                className="w-10 h-5 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
                 onClick={scrollLeft}
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -237,7 +237,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
               <Button
                 variant="outline"
                 size="icon"
-                className="w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
+                className="w-10 h-5 rounded-lg bg-white/90 backdrop-blur-sm shadow-lg border-gray-200"
                 onClick={scrollRight}
               >
                 <ChevronRight className="w-5 h-5" />
@@ -261,9 +261,9 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
                 <img 
                   src={card.image} 
                   alt={card.title}
-                  className="w-full h-56 object-cover"
+                  className="w-full h-full object-cover"
                 />
-                <div className="absolute top-3 right-3 bg-red-600 text-white px-3 py-1 rounded-full text-xs font-medium">
+                <div className="absolute top-3 right-3 bg-black text-white px-3 py-1 rounded-lg text-xs font-medium">
                   {card.category}
                 </div>
               </div>
