@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { LineChart, Line, XAxis, YAxis, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import { ArrowUpDown, Info, ChevronDown } from 'lucide-react';
+import { ArrowUpDown, Info, ChevronDown, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
@@ -25,6 +25,7 @@ const TradeDataSection = () => {
 
   const [sortConfig, setSortConfig] = useState<{ key: string; direction: 'asc' | 'desc' } | null>(null);
   const [timeRange, setTimeRange] = useState('Quarterly');
+  const [loading, setLoading] = useState(false);
   const [activeTradeTypes, setActiveTradeTypes] = useState({ import: true, export: true });
   const [selectedTradeType, setSelectedTradeType] = useState('Import');
   
@@ -142,7 +143,11 @@ const TradeDataSection = () => {
   };
 
   const handleTimeRangeChange = (range: string) => {
-    setTimeRange(range);
+    setLoading(true);
+    setTimeout(() => {
+      setTimeRange(range);
+      setLoading(false);
+    }, 1000);
   };
 
   // Custom tooltip component for the chart
@@ -265,21 +270,21 @@ const TradeDataSection = () => {
                   <DropdownMenuContent className="w-40 bg-background border border-border shadow-lg z-50">
                     <DropdownMenuItem 
                       onClick={() => handleTimeRangeChange('Monthly')}
-                      className="cursor-pointer hover:bg-muted"
+                      className={`cursor-pointer hover:bg-muted ${timeRange === 'Monthly' ? 'bg-primary text-white' : ''}`}
                     >
-                      Monthly
+                      Monthly {timeRange === 'Monthly' && <span className="ml-2">✓</span>}
                     </DropdownMenuItem>
                     <DropdownMenuItem 
                       onClick={() => handleTimeRangeChange('Quarterly')}
-                      className="cursor-pointer hover:bg-muted"
+                      className={`cursor-pointer hover:bg-muted ${timeRange === 'Quarterly' ? 'bg-primary text-white' : ''}`}
                     >
-                      Quarterly
+                      Quarterly {timeRange === 'Quarterly' && <span className="ml-2">✓</span>}
                     </DropdownMenuItem>
                     <DropdownMenuItem 
                       onClick={() => handleTimeRangeChange('Yearly')}
-                      className="cursor-pointer hover:bg-muted"
+                      className={`cursor-pointer hover:bg-muted ${timeRange === 'Yearly' ? 'bg-primary text-white' : ''}`}
                     >
-                      Yearly
+                      Yearly {timeRange === 'Yearly' && <span className="ml-2">✓</span>}
                     </DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -355,21 +360,21 @@ const TradeDataSection = () => {
                     <DropdownMenuContent className="w-40 bg-background border border-border shadow-lg z-50">
                       <DropdownMenuItem 
                         onClick={() => handleTimeRangeChange('Monthly')}
-                        className="cursor-pointer hover:bg-muted"
+                        className={`cursor-pointer hover:bg-muted ${timeRange === 'Monthly' ? 'bg-primary text-white' : ''}`}
                       >
-                        Monthly
+                        Monthly {timeRange === 'Monthly' && <span className="ml-2">✓</span>}
                       </DropdownMenuItem>
                       <DropdownMenuItem 
                         onClick={() => handleTimeRangeChange('Quarterly')}
-                        className="cursor-pointer hover:bg-muted"
+                        className={`cursor-pointer hover:bg-muted ${timeRange === 'Quarterly' ? 'bg-primary text-white' : ''}`}
                       >
-                        Quarterly
+                        Quarterly {timeRange === 'Quarterly' && <span className="ml-2">✓</span>}
                       </DropdownMenuItem>
                       <DropdownMenuItem 
                         onClick={() => handleTimeRangeChange('Yearly')}
-                        className="cursor-pointer hover:bg-muted"
+                        className={`cursor-pointer hover:bg-muted ${timeRange === 'Yearly' ? 'bg-primary text-white' : ''}`}
                       >
-                        Yearly
+                        Yearly {timeRange === 'Yearly' && <span className="ml-2">✓</span>}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -404,49 +409,55 @@ const TradeDataSection = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <ResponsiveContainer width="100%" height={350}>
-              <LineChart data={chartData}>
-                <XAxis 
-                  dataKey="month" 
-                  tick={{ fontSize: 12 }}
-                  tickLine={{ stroke: '#666' }}
-                />
-                <YAxis 
-                  label={{ value: 'Trade Volume Legend', angle: -90, dx:-30, dy: 0 }}
-                  tick={{ fontSize: 11 }}
-                  tickFormatter={(value) => value.toLocaleString()}
-                />
-                <Tooltip content={<CustomTooltip />} />
-                {activeTradeTypes.import && (
-                  <Line 
-                    type="monotone" 
-                    dataKey="import" 
-                    stroke="#dc2626" 
-                    strokeWidth={2}
-                    name="Import"
-                    dot={false}
-                    activeDot={{ r: 4, stroke: '#dc2626', strokeWidth: 2 }}
+            {loading ? (
+              <div className="flex justify-center items-center h-[350px]">
+                <Loader2 className="animate-spin w-8 h-8 text-primary" />
+              </div>
+            ) : (
+              <ResponsiveContainer width="100%" height={350}>
+                <LineChart data={chartData}>
+                  <XAxis 
+                    dataKey="month" 
+                    tick={{ fontSize: 12 }}
+                    tickLine={{ stroke: '#666' }}
                   />
-                )}
-                {activeTradeTypes.export && (
-                  <Line 
-                    type="monotone" 
-                    dataKey="export" 
-                    stroke="#16a34a" 
-                    strokeWidth={2}
-                    name="Export"
-                    dot={false}
-                    activeDot={{ r: 4, stroke: '#16a34a', strokeWidth: 2 }}
+                  <YAxis 
+                    label={{ value: 'Trade Volume Legend', angle: -90, dx:-30, dy: 0 }}
+                    tick={{ fontSize: 11 }}
+                    tickFormatter={(value) => value.toLocaleString()}
                   />
-                )}
-                <Legend 
-                  verticalAlign="bottom" 
-                  height={36}
-                  iconType="line"
-                  wrapperStyle={{ paddingTop: '20px' }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
+                  <Tooltip content={<CustomTooltip />} />
+                  {activeTradeTypes.import && (
+                    <Line 
+                      type="monotone" 
+                      dataKey="import" 
+                      stroke="#dc2626" 
+                      strokeWidth={2}
+                      name="Import"
+                      dot={false}
+                      activeDot={{ r: 4, stroke: '#dc2626', strokeWidth: 2 }}
+                    />
+                  )}
+                  {activeTradeTypes.export && (
+                    <Line 
+                      type="monotone" 
+                      dataKey="export" 
+                      stroke="#16a34a" 
+                      strokeWidth={2}
+                      name="Export"
+                      dot={false}
+                      activeDot={{ r: 4, stroke: '#16a34a', strokeWidth: 2 }}
+                    />
+                  )}
+                  <Legend 
+                    verticalAlign="bottom" 
+                    height={36}
+                    iconType="line"
+                    wrapperStyle={{ paddingTop: '20px' }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            )}
             
             {/* Data Summary */}
             <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-muted/30 rounded-lg">

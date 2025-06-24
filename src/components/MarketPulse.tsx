@@ -143,6 +143,15 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
     }
   };
 
+  // Add this function to scroll to top when opening the dialog
+  const openBlogDialog = (card) => {
+    console.log('Opening blog:', card);
+    setSelectedBlog(card);
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }, 10);
+  };
+
   return (
     <TooltipProvider>
       <div className="mb-6">
@@ -197,7 +206,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
       {/* Desktop Grid View */}
       <div className="hidden lg:grid lg:grid-cols-3 gap-6">
         {filteredCards.map((card, index) => (
-          <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" onClick={() => setSelectedBlog(card)}>
+          <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer" onClick={() => openBlogDialog(card)}>
             <div className="relative">
               <img 
                 src={card.image} 
@@ -256,7 +265,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
           }}
         >
           {filteredCards.map((card, index) => (
-            <Card key={index} className="flex-shrink-0 w-80 sm:w-96 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer snap-center" onClick={() => setSelectedBlog(card)}>
+            <Card key={index} className="flex-shrink-0 w-80 sm:w-96 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer snap-center" onClick={() => openBlogDialog(card)}>
               <div className="relative">
                 <img 
                   src={card.image} 
@@ -292,48 +301,69 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
       }} />
 
       {/* Blog Post Dialog */}
-      <Dialog open={!!selectedBlog} onOpenChange={() => setSelectedBlog(null)}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl md:text-3xl font-bold mb-4">
-              {selectedBlog?.fullContent?.title}
-            </DialogTitle>
-          </DialogHeader>
-          
-          {selectedBlog && (
-            <div className="space-y-6">
-              {/* Hero Image */}
-              <div className="relative rounded-lg overflow-hidden">
-                <img 
-                  src={selectedBlog.image}
-                  alt={selectedBlog.title}
-                  className="w-full h-64 md:h-80 object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+      <Dialog open={!!selectedBlog && !!selectedBlog.fullContent} onOpenChange={() => setSelectedBlog(null)}>
+        <DialogContent 
+          className="max-w-4xl w-full max-h-[90vh] overflow-y-auto p-2 sm:p-6 pt-12 sm:pt-6 relative"
+          style={{ zIndex: 99999, position: 'fixed', left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}
+        >
+          {selectedBlog && selectedBlog.fullContent ? (
+            <>
+              <DialogHeader>
+                <DialogTitle 
+                  className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 pt-2 sm:pt-0 text-center sm:text-left"
+                  style={{ minHeight: '3rem' }}
+                >
+                  {selectedBlog.fullContent.title}
+                </DialogTitle>
+              </DialogHeader>
+              {/* Absolutely position the close button for mobile, ensure it doesn't overlap */}
+              <div className="block sm:hidden">
+                <button
+                  aria-label="Close"
+                  onClick={() => setSelectedBlog(null)}
+                  className="absolute top-3 right-3 z-50 bg-white/80 rounded-full p-2 shadow-md border border-gray-200 focus:outline-none"
+                  style={{ lineHeight: 0 }}
+                >
+                  <X className="h-5 w-5 text-gray-700" />
+                </button>
               </div>
-
-              {/* Meta Information */}
-              <div className="flex flex-wrap gap-4 pb-6 border-b border-border">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Building2 className="w-4 h-4" />
-                  <span>Published by: {selectedBlog.fullContent.publisher}</span>
+              <div className="space-y-6">
+                {/* Hero Image */}
+                <div className="relative rounded-lg overflow-hidden">
+                  <img 
+                    src={selectedBlog.image}
+                    alt={selectedBlog.title}
+                    className="w-full h-48 sm:h-64 md:h-80 object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Calendar className="w-4 h-4" />
-                  <span>{selectedBlog.fullContent.date}</span>
+                {/* Meta Information */}
+                <div className="flex flex-wrap gap-4 pb-6 border-b border-border">
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                    <Building2 className="w-4 h-4" />
+                    <span>Published by: {selectedBlog.fullContent.publisher}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                    <Calendar className="w-4 h-4" />
+                    <span>{selectedBlog.fullContent.date}</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">
+                    <User className="w-4 h-4" />
+                    <span>{selectedBlog.fullContent.author}</span>
+                  </div>
                 </div>
-                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <User className="w-4 h-4" />
-                  <span>{selectedBlog.fullContent.author}</span>
+                {/* Content */}
+                <div className="prose prose-base sm:prose-lg max-w-none text-foreground">
+                  <div className="whitespace-pre-line leading-relaxed text-base">
+                    {selectedBlog.fullContent.content}
+                  </div>
                 </div>
               </div>
-
-              {/* Content */}
-              <div className="prose prose-lg max-w-none text-foreground">
-                <div className="whitespace-pre-line leading-relaxed text-base">
-                  {selectedBlog.fullContent.content}
-                </div>
-              </div>
+            </>
+          ) : (
+            <div className="flex flex-col items-center justify-center min-h-[200px] text-center">
+              <p className="text-lg font-semibold mb-2">Blog content not found.</p>
+              <Button onClick={() => setSelectedBlog(null)} className="mt-2">Close</Button>
             </div>
           )}
         </DialogContent>
