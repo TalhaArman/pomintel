@@ -358,21 +358,20 @@ const DashboardHeader = () => {
         )}
         
         {/* Mobile Search Bar - Collapsible on Scroll */}
-        <div 
-          className={`
-            absolute top-full left-0 right-0 bg-background/95 backdrop-blur-sm border-b border-border shadow-md z-40
-            transition-all duration-300 ease-in-out
-            ${showSearchBar && !isMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'}
-          `}
-        >
-          <div className="container mx-auto px-4 py-4">
+        <div className={`md:hidden border-t border-border py-3 bg-background/95 backdrop-blur-sm transition-all duration-300 ${
+          showSearchBar ? 'max-h-20 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+        }`}>
+          <div className="px-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
               <Input 
                 placeholder="Search here..." 
-                className="pl-10 w-full bg-muted/30"
+                className="pl-10 w-full bg-muted/30 h-10"
               />
-              <Button size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 p-0 md:h-8 md:w-8">
+              <Button 
+                size="sm" 
+                className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6 p-0"
+              >
                 <Search className="w-4 h-4" />
               </Button>
             </div>
