@@ -8,50 +8,61 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+const generateDataForTimeRange = (range: string) => {
+  const multiplier = range === 'Yearly' ? 1 : range === 'Quarterly' ? 0.25 : 1 / 12;
+  const variance = (base: number) => base * multiplier * (0.8 + Math.random() * 0.4);
+
+  return {
+    topExporters: [
+      { country: 'Peru', percentage: 45, volume: variance(2654), color: 'bg-black' },
+      { country: 'Spain', percentage: 28, volume: variance(1652), color: 'bg-gray-400' },
+      { country: 'South Africa', percentage: 15, volume: variance(885), color: 'bg-gray-600' },
+      { country: 'USA', percentage: 8, volume: variance(471), color: 'bg-gray-300' },
+      { country: 'Turkey', percentage: 4, volume: variance(236), color: 'bg-gray-200' },
+    ],
+    topImporters: [
+      { country: 'USA', percentage: 38, volume: variance(1814), color: 'bg-black' },
+      { country: 'UAE', percentage: 30, volume: variance(1433), color: 'bg-gray-400' },
+      { country: 'Spain', percentage: 20, volume: variance(955), color: 'bg-gray-600' },
+      { country: 'Turkey', percentage: 7, volume: variance(334), color: 'bg-gray-300' },
+      { country: 'South Africa', percentage: 5, volume: variance(239), color: 'bg-gray-200' },
+    ],
+    yoyGrowthData: [
+      { year: '2017', value: -9.1, isNegative: true },
+      { year: '2018', value: -11.1, isNegative: true },
+      { year: '2019', value: -5.8, isNegative: true },
+      { year: '2020', value: 9.7, isNegative: false },
+      { year: '2021', value: 14.1, isNegative: false },
+      { year: '2022', value: 3.4, isNegative: false },
+      { year: '2023', value: 2.1, isNegative: false },
+      { year: '2024', value: -7.9, isNegative: true },
+    ].map(item => ({...item, value: item.value * multiplier * (0.9 + Math.random() * 0.2)})),
+    tradeSnapshot: [
+      { label: 'Top Exporter', value: 'Peru' },
+      { label: 'Top Importer', value: 'USA' },
+      { label: 'Total Export Volume', value: `${variance(5889).toFixed(0)} thousand tons` },
+      { label: 'Total Import Volume', value: `${variance(4776).toFixed(0)} thousand tons` },
+      { label: 'Active Countries Tracked', value: '8' },
+    ]
+  };
+};
 
 const OverviewSection = () => {
   const navigate = useNavigate();
   const [timeRange, setTimeRange] = useState('Yearly');
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null);
-
+  const [overviewData, setOverviewData] = useState(generateDataForTimeRange(timeRange));
+  
   const timeRanges = ['Yearly', 'Monthly', 'Quarterly'];
+  
+  useEffect(() => {
+    setOverviewData(generateDataForTimeRange(timeRange));
+  }, [timeRange]);
 
-  const topExporters = [
-    { country: 'Peru', percentage: 45, volume: 2654, color: 'bg-black' },
-    { country: 'Spain', percentage: 28, volume: 1652, color: 'bg-gray-400' },
-    { country: 'South Africa', percentage: 15, volume: 885, color: 'bg-gray-600' },
-    { country: 'USA', percentage: 8, volume: 471, color: 'bg-gray-300' },
-    { country: 'Turkey', percentage: 4, volume: 236, color: 'bg-gray-200' },
-  ];
-
-  const topImporters = [
-    { country: 'USA', percentage: 38, volume: 1814, color: 'bg-black' },
-    { country: 'UAE', percentage: 30, volume: 1433, color: 'bg-gray-400' },
-    { country: 'Spain', percentage: 20, volume: 955, color: 'bg-gray-600' },
-    { country: 'Turkey', percentage: 7, volume: 334, color: 'bg-gray-300' },
-    { country: 'South Africa', percentage: 5, volume: 239, color: 'bg-gray-200' },
-  ];
-
-  const yoyGrowthData = [
-    { year: '2017', value: -9.1, isNegative: true },
-    { year: '2018', value: -11.1, isNegative: true },
-    { year: '2019', value: -5.8, isNegative: true },
-    { year: '2020', value: 9.7, isNegative: false },
-    { year: '2021', value: 14.1, isNegative: false },
-    { year: '2022', value: 3.4, isNegative: false },
-    { year: '2023', value: 2.1, isNegative: false },
-    { year: '2024', value: -7.9, isNegative: true },
-  ];
-
-  const tradeSnapshot = [
-    { label: 'Top Exporter', value: 'Peru' },
-    { label: 'Top Importer', value: 'USA' },
-    { label: 'Total Export Volume', value: '5,889 thousand tons' },
-    { label: 'Total Import Volume', value: '4,776 thousand tons' },
-    { label: 'Active Countries Tracked', value: '8' },
-  ];
+  const { topExporters, topImporters, yoyGrowthData, tradeSnapshot } = overviewData;
 
   const handleCountryClick = (country: string) => {
     setSelectedCountry(selectedCountry === country ? null : country);
@@ -224,7 +235,7 @@ const OverviewSection = () => {
                   <span className={`text-xs font-semibold w-10 text-right ${
                     item.isNegative ? 'text-red-500' : 'text-green-500'
                   }`}>
-                    {item.isNegative ? '' : '+'}{item.value}%
+                    {item.isNegative ? '' : '+'}{item.value.toFixed(1)}%
                   </span>
                   <MiniChart value={item.value} isNegative={item.isNegative} />
                 </div>
@@ -252,9 +263,9 @@ const OverviewSection = () => {
               </Button>
             </div>
           </CardHeader>
-          <CardContent className="flex-1 space-y-3 overflow-y-auto p-4 pt-0">
+          <CardContent className="flex-1 space-y-3 p-4 pt-0 overflow-y-auto">
             {tradeSnapshot.map((item, index) => (
-              <div key={index} className="flex justify-between items-center py-1.5 hover:bg-gray-50 rounded-md px-1.5 transition-colors">
+              <div key={index} className="flex items-center justify-between py-1.5 border-b border-gray-100 last:border-b-0">
                 <span className="text-xs text-muted-foreground">{item.label}</span>
                 <span className="text-xs font-semibold">{item.value}</span>
               </div>
