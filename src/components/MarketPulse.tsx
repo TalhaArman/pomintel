@@ -190,14 +190,6 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
                 </SelectItem>
               </SelectContent>
             </Select>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="text-xs sm:text-sm rounded-lg px-4 py-2"
-              onClick={() => window.open('/articles', '_blank')}
-            >
-              View All
-            </Button>
           </div>
         </div>
 
@@ -314,17 +306,6 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
                   {selectedBlog.fullContent.title}
                 </DialogTitle>
               </DialogHeader>
-              {/* Absolutely position the close button for mobile, ensure it doesn't overlap */}
-              <div className="block sm:hidden">
-                <button
-                  aria-label="Close"
-                  onClick={() => setSelectedBlog(null)}
-                  className="absolute top-3 right-3 z-50 bg-white/80 rounded-full p-2 shadow-md border border-gray-200 focus:outline-none"
-                  style={{ lineHeight: 0 }}
-                >
-                  <X className="h-5 w-5 text-gray-700" />
-                </button>
-              </div>
               <div className="space-y-6">
                 {/* Hero Image */}
                 <div className="relative rounded-lg overflow-hidden">
