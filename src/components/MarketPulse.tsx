@@ -157,7 +157,8 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
       <div className="mb-6">
         {/* Header with dropdown filter */}
         <div className="flex flex-col space-y-4 mb-6">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
+            {/* Heading and Tooltip */}
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-semibold">Market Pulse</h2>
               <Tooltip>
@@ -171,34 +172,36 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
                 </TooltipContent>
               </Tooltip>
             </div>
-          <div className="flex items-center gap-4">
-            <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
-                <SelectValue placeholder="Countries: All" />
-              </SelectTrigger>
-              <SelectContent className="bg-white border-gray-300 z-50">
-                <SelectItem value="All" className="hover:bg-gray-100 focus:bg-gray-100">
-                  Countries: All
-                </SelectItem>
-                <SelectItem value="Peru" className="hover:bg-gray-100 focus:bg-gray-100">
-                  Peru
-                </SelectItem>
-                <SelectItem value="Spain" className="hover:bg-gray-100 focus:bg-gray-100">
-                  Spain
-                </SelectItem>
-                <SelectItem value="Turkey" className="hover:bg-gray-100 focus:bg-gray-100">
-                  Turkey
-                </SelectItem>
-              </SelectContent>
-            </Select>
-            <Button 
-              variant="outline" 
-              size="sm" 
-              className="text-xs sm:text-sm hidden sm:block rounded-lg px-4 py-2"
-              onClick={() => window.open('/articles', '_blank')}
-            >
-              View All
-            </Button>
+            {/* Country Select and View All Button */}
+            <div className="flex items-center gap-4 mt-2 sm:mt-0">
+              <Select value={selectedCountry} onValueChange={setSelectedCountry}>
+                <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
+                  <SelectValue placeholder="Countries: All" />
+                </SelectTrigger>
+                <SelectContent className="bg-white border-gray-300 z-50">
+                  <SelectItem value="All" className="hover:bg-gray-100 focus:bg-gray-100">
+                    Countries: All
+                  </SelectItem>
+                  <SelectItem value="Peru" className="hover:bg-gray-100 focus:bg-gray-100">
+                    Peru
+                  </SelectItem>
+                  <SelectItem value="Spain" className="hover:bg-gray-100 focus:bg-gray-100">
+                    Spain
+                  </SelectItem>
+                  <SelectItem value="Turkey" className="hover:bg-gray-100 focus:bg-gray-100">
+                    Turkey
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="text-xs sm:text-sm hidden sm:block rounded-lg px-4 py-2"
+                onClick={() => window.open('/articles', '_blank')}
+              >
+                View All
+              </Button>
+            </div>
           </div>
         </div>
       </div>

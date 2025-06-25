@@ -224,19 +224,7 @@ const TradeDataSection = () => {
         <Card>
           <CardHeader>
             <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center space-y-4 lg:space-y-0">
-              <div className="flex items-center gap-2">
-                <CardTitle className="text-xl font-semibold text-foreground">Market Pulse</CardTitle>
-                <UITooltip>
-                  <TooltipTrigger>
-                    <Info className="w-4 h-4 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    <p className="text-sm max-w-xs">
-                      Overall trade volume trends, summary data, and performance metrics for pomegranate trade.
-                    </p>
-                  </TooltipContent>
-                </UITooltip>
-              </div>
+              <CardTitle className="text-xl font-semibold text-foreground">Trade Data</CardTitle>
               
               {/* Desktop: All controls in one row */}
               <div className="hidden lg:flex flex-wrap gap-3 items-center">
@@ -327,10 +315,9 @@ const TradeDataSection = () => {
                 </div>
               </div>
 
-              {/* Mobile Controls */}
-              <div className="flex flex-col gap-3 lg:hidden">
-                {/* Mobile: Dropdowns */}
-                <div className="flex flex-col sm:flex-row gap-2 w-full">
+              {/* Mobile: Top row with dropdowns */}
+              <div className="flex flex-col sm:flex-row gap-3 lg:hidden">
+                <div className="flex gap-2 flex-1">
                   {/* Trade Type Dropdown */}
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
@@ -391,32 +378,32 @@ const TradeDataSection = () => {
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </div>
-                
-                {/* Mobile: Import/Export Toggle Buttons */}
-                <div className="flex items-center justify-center gap-2">
-                  <button
-                    onClick={() => handleTradeTypeToggle('import')}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      activeTradeTypes.import 
-                        ? 'bg-red-600 text-white' 
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    <div className="w-3 h-3 rounded-full bg-current"></div>
-                    Import
-                  </button>
-                  <button
-                    onClick={() => handleTradeTypeToggle('export')}
-                    className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
-                      activeTradeTypes.export 
-                        ? 'bg-green-600 text-white' 
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    <div className="w-3 h-3 rounded-full bg-current"></div>
-                    Export
-                  </button>
-                </div>
+              </div>
+
+              {/* Mobile: Bottom row with Import/Export Toggle Buttons */}
+              <div className="flex items-center justify-center gap-2 lg:hidden">
+                <button
+                  onClick={() => handleTradeTypeToggle('import')}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    activeTradeTypes.import 
+                      ? 'bg-red-600 text-white' 
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  <div className="w-3 h-3 rounded-full bg-current"></div>
+                  Import
+                </button>
+                <button
+                  onClick={() => handleTradeTypeToggle('export')}
+                  className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                    activeTradeTypes.export 
+                      ? 'bg-green-600 text-white' 
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  <div className="w-3 h-3 rounded-full bg-current"></div>
+                  Export
+                </button>
               </div>
             </div>
           </CardHeader>
