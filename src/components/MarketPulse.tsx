@@ -247,7 +247,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
 
         {/* Horizontal Scrolling Container */}
         <div 
-          className="market-pulse-scroll flex gap-4 overflow-x-auto pb-4 px-4 scroll-smooth snap-x snap-mandatory"
+          className="market-pulse-scroll grid grid-flow-col auto-cols-[80%] sm:auto-cols-[45%] md:auto-cols-[30%] gap-4 overflow-x-auto pb-4 px-4 scroll-smooth snap-x snap-mandatory"
           style={{ 
             scrollbarWidth: 'none', 
             msOverflowStyle: 'none',
@@ -255,7 +255,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
           }}
         >
           {filteredCards.map((card, index) => (
-            <Card key={index} className="flex-shrink-0 w-80 sm:w-96 overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer snap-center" onClick={() => openBlogDialog(card)}>
+            <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer snap-center" onClick={() => openBlogDialog(card)}>
               <div className="relative">
                 <img 
                   src={card.image} 
