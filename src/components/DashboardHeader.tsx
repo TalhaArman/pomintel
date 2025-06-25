@@ -191,14 +191,16 @@ const DashboardHeader = () => {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             {/* Search */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input 
-                placeholder="Search here" 
-                className="pl-10 w-64 bg-muted/30"
-              />
-              <Button size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2 h-8 w-8 p-0">
-                <Search className="w-4 h-4" />
+            <div className="flex w-64 items-center">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  placeholder="Search here"
+                  className="w-full rounded-r-none bg-muted/30 pl-10"
+                />
+              </div>
+              <Button className="-ml-px rounded-l-none bg-black text-white hover:bg-black/90">
+                <Search className="h-4 w-4" />
               </Button>
             </div>
 
@@ -274,46 +276,56 @@ const DashboardHeader = () => {
         </div>
 
         {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t border-border py-4">
-            <nav className="flex flex-col mb-4">
-              {navItems.map((item) => (
-                <button
-                  key={item.name}
-                  onClick={() => {
-                    if (location.pathname === '/' && item.sectionId) {
-                      const element = document.getElementById(item.sectionId);
-                      if (element) {
-                        const headerHeight = 200; // Account for fixed header + subscription bar
-                        const elementPosition = element.offsetTop - headerHeight;
-                        window.scrollTo({ top: elementPosition, behavior: 'smooth' });
-                      }
-                    } else {
-                      navigate(item.path);
-                    }
-                    setIsMenuOpen(false);
-                  }}
-                  className={`text-sm font-medium transition-colors py-3 px-4 text-left border-b border-border/50 ${
-                    (location.pathname === item.path) || (location.pathname === '/' && activeSection === item.sectionId)
-                      ? 'text-foreground bg-muted/50' 
-                      : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
-                  }`}
-                >
-                  {item.name}
-                </button>
-              ))}
-            </nav>
-            
+        <div className={`${isMenuOpen ? 'block' : 'hidden'} lg:hidden border-t border-border`}>
+          <div className="container mx-auto px-4 py-4 space-y-4">
             {/* Mobile Search */}
-            <div className="px-4 mb-4">
-              <div className="relative">
-                <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                <Input 
-                  placeholder="Search here" 
-                  className="pl-10 w-full bg-muted/30"
+            <div className="flex w-full items-center">
+              <div className="relative flex-grow">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  placeholder="Search here..."
+                  className="w-full rounded-r-none bg-muted/30 pl-10"
                 />
               </div>
+              <Button className="-ml-px rounded-l-none bg-black text-white hover:bg-black/90">
+                <Search className="h-4 w-4" />
+              </Button>
             </div>
+            
+            <nav className="flex flex-col space-y-2">
+              {navItems.map((item) => {
+                const isHomePage = location.pathname === '/';
+                const isActive = isHomePage 
+                  ? activeSection === item.sectionId 
+                  : location.pathname === item.path;
+
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() => {
+                      if (isHomePage && item.sectionId) {
+                        const element = document.getElementById(item.sectionId);
+                        if (element) {
+                          const headerHeight = 200; // Account for fixed header + subscription bar
+                          const elementPosition = element.offsetTop - headerHeight;
+                          window.scrollTo({ top: elementPosition, behavior: 'smooth' });
+                        }
+                      } else {
+                        navigate(item.path);
+                      }
+                      setIsMenuOpen(false);
+                    }}
+                    className={`text-sm font-medium transition-colors py-3 px-4 text-left border-b border-border/50 ${
+                      (location.pathname === item.path) || (location.pathname === '/' && activeSection === item.sectionId)
+                        ? 'text-foreground bg-muted/50' 
+                        : 'text-muted-foreground hover:text-foreground hover:bg-muted/30'
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                );
+              })}
+            </nav>
             
             {/* Mobile Subscribe Section */}
             <div className="px-4 mb-4">
@@ -355,7 +367,7 @@ const DashboardHeader = () => {
               </Button>
             </div>
           </div>
-        )}
+        </div>
         
         {/* Mobile Search Bar - Collapsible on Scroll */}
         <div className={`md:hidden border-t border-border py-3 bg-background/95 backdrop-blur-sm transition-all duration-300 ${
