@@ -156,8 +156,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
     <TooltipProvider>
       <div className="mb-6">
         {/* Header with dropdown filter */}
-        <div className="flex flex-col space-y-4 mb-6">
-          <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-semibold">Market Pulse</h2>
               <Tooltip>
@@ -171,9 +170,9 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
                 </TooltipContent>
               </Tooltip>
             </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 w-full sm:w-auto">
             <Select value={selectedCountry} onValueChange={setSelectedCountry}>
-              <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
+              <SelectTrigger className="w-full sm:w-48 bg-white border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
                 <SelectValue placeholder="Countries: All" />
               </SelectTrigger>
               <SelectContent className="bg-white border-gray-300 z-50">
@@ -194,14 +193,13 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
             <Button 
               variant="outline" 
               size="sm" 
-              className="text-xs sm:text-sm hidden sm:block rounded-lg px-4 py-2"
+              className="text-xs sm:text-sm rounded-lg px-4 py-2"
               onClick={() => window.open('/articles', '_blank')}
             >
               View All
             </Button>
           </div>
         </div>
-      </div>
 
       {/* Desktop Grid View */}
       <div className="hidden lg:grid lg:grid-cols-3 gap-6">
