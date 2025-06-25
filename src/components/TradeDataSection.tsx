@@ -494,7 +494,7 @@ const TradeDataSection = () => {
         <Card>
           <CardHeader>
             <div className="flex items-center gap-2">
-              <CardTitle>Country Trade Performance</CardTitle>
+              <CardTitle>Trade Performance</CardTitle>
               <UITooltip>
                 <TooltipTrigger>
                   <Info className="w-5 h-5 text-muted-foreground hover:text-foreground transition-colors cursor-help" />
