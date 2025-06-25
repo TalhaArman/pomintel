@@ -158,7 +158,6 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
         {/* Header with dropdown filter */}
         <div className="flex flex-col space-y-4 mb-6">
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0">
-            {/* Heading and Tooltip */}
             <div className="flex items-center gap-2">
               <h2 className="text-xl font-semibold">Market Pulse</h2>
               <Tooltip>
@@ -172,7 +171,6 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
                 </TooltipContent>
               </Tooltip>
             </div>
-            {/* Country Select and View All Button */}
             <div className="flex items-center gap-4 mt-2 sm:mt-0">
               <Select value={selectedCountry} onValueChange={setSelectedCountry}>
                 <SelectTrigger className="w-48 bg-white border-gray-300 text-gray-900 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary shadow-sm">
@@ -196,7 +194,7 @@ Turkey's approach emphasizes quality over quantity, leveraging its unique variet
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="text-xs sm:text-sm hidden sm:block rounded-lg px-4 py-2"
+                className="text-xs sm:text-sm rounded-lg px-4 py-2"
                 onClick={() => window.open('/articles', '_blank')}
               >
                 View All
