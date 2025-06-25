@@ -218,7 +218,6 @@ const TradeDataSection = () => {
                 </p>
               </TooltipContent>
             </UITooltip>
-            <p className="text-sm text-muted-foreground ml-2">Data shown: 2024 (Quarterly)</p>
           </div>
         </div>
 
