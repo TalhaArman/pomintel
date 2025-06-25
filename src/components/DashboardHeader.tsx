@@ -368,10 +368,12 @@ const DashboardHeader = () => {
                 placeholder="Search here..." 
                 className="pl-10 w-full bg-muted/30 h-10"
               />
-              <Button size="sm" className="absolute right-1 top-1/2 transform -translate-y-1/2 h-7 w-7 p-0">
-                <Search className="w-4 h-4" />
-              </Button>
-
+              <Button 
+  size="sm" 
+  className="absolute right-1 top-1/2 -translate-y-1/2 h-5 w-5 p-0"
+>
+  <Search className="w-[14px] h-[14px]" />
+</Button>
             </div>
           </div>
         </div>
