@@ -316,72 +316,70 @@ const TradeDataSection = () => {
               </div>
 
               {/* Mobile: Top row with dropdowns */}
-              <div className="flex flex-col sm:flex-row gap-3 lg:hidden">
-                <div className="flex gap-2 flex-1">
-                  {/* Trade Type Dropdown */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border border-border flex-1 justify-between">
-                        Trade Type: {selectedTradeType}
-                        <ChevronDown className="w-3 h-3" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-40 bg-background border border-border shadow-lg z-50">
-                      <DropdownMenuItem 
-                        onClick={() => handleTradeTypeFilter('All')}
-                        className="cursor-pointer hover:bg-muted"
-                      >
-                        All
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => handleTradeTypeFilter('Import')}
-                        className="cursor-pointer hover:bg-muted"
-                      >
-                        Import
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => handleTradeTypeFilter('Export')}
-                        className="cursor-pointer hover:bg-muted"
-                      >
-                        Export
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 lg:hidden">
+                {/* Trade Type Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border border-border w-full justify-between">
+                      Trade Type: {selectedTradeType}
+                      <ChevronDown className="w-3 h-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] bg-background border border-border shadow-lg z-50">
+                    <DropdownMenuItem 
+                      onClick={() => handleTradeTypeFilter('All')}
+                      className="cursor-pointer hover:bg-muted"
+                    >
+                      All
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => handleTradeTypeFilter('Import')}
+                      className="cursor-pointer hover:bg-muted"
+                    >
+                      Import
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => handleTradeTypeFilter('Export')}
+                      className="cursor-pointer hover:bg-muted"
+                    >
+                      Export
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
 
-                  {/* Time Range Dropdown */}
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border border-border flex-1 justify-between">
-                        Time Range: {timeRange}
-                        <ChevronDown className="w-3 h-3" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-40 bg-background border border-border shadow-lg z-50">
-                      <DropdownMenuItem 
-                        onClick={() => handleTimeRangeChange('Monthly')}
-                        className={`cursor-pointer hover:bg-muted ${timeRange === 'Monthly' ? 'bg-primary text-white' : ''}`}
-                      >
-                        Monthly {timeRange === 'Monthly' && <span className="ml-2">✓</span>}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => handleTimeRangeChange('Quarterly')}
-                        className={`cursor-pointer hover:bg-muted ${timeRange === 'Quarterly' ? 'bg-primary text-white' : ''}`}
-                      >
-                        Quarterly {timeRange === 'Quarterly' && <span className="ml-2">✓</span>}
-                      </DropdownMenuItem>
-                      <DropdownMenuItem 
-                        onClick={() => handleTimeRangeChange('Yearly')}
-                        className={`cursor-pointer hover:bg-muted ${timeRange === 'Yearly' ? 'bg-primary text-white' : ''}`}
-                      >
-                        Yearly {timeRange === 'Yearly' && <span className="ml-2">✓</span>}
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </div>
+                {/* Time Range Dropdown */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button variant="ghost" size="sm" className="text-xs sm:text-sm flex items-center gap-1 border border-border w-full justify-between">
+                      Time Range: {timeRange}
+                      <ChevronDown className="w-3 h-3" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent className="w-[--radix-dropdown-menu-trigger-width] bg-background border border-border shadow-lg z-50">
+                    <DropdownMenuItem 
+                      onClick={() => handleTimeRangeChange('Monthly')}
+                      className={`cursor-pointer hover:bg-muted ${timeRange === 'Monthly' ? 'bg-primary text-white' : ''}`}
+                    >
+                      Monthly {timeRange === 'Monthly' && <span className="ml-2">✓</span>}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => handleTimeRangeChange('Quarterly')}
+                      className={`cursor-pointer hover:bg-muted ${timeRange === 'Quarterly' ? 'bg-primary text-white' : ''}`}
+                    >
+                      Quarterly {timeRange === 'Quarterly' && <span className="ml-2">✓</span>}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem 
+                      onClick={() => handleTimeRangeChange('Yearly')}
+                      className={`cursor-pointer hover:bg-muted ${timeRange === 'Yearly' ? 'bg-primary text-white' : ''}`}
+                    >
+                      Yearly {timeRange === 'Yearly' && <span className="ml-2">✓</span>}
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </div>
 
               {/* Mobile: Bottom row with Import/Export Toggle Buttons */}
-              <div className="flex items-center justify-center gap-2 lg:hidden">
+              <div className="flex items-center justify-center gap-2 lg:hidden pt-2 sm:pt-0">
                 <button
                   onClick={() => handleTradeTypeToggle('import')}
                   className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
