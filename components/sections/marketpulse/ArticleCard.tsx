@@ -19,7 +19,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onClick }) => {
             <svg width="64" height="64" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="#e5e7eb" /><text x="12" y="16" textAnchor="middle" fontSize="10" fill="#9ca3af">No Image</text></svg>
           </div>
         ) : (
-          <img src={article.image} alt={article.title} className="w-full h-48 object-cover" onError={() => setImgError(true)} />
+          <img src={article.image} alt={article.title} className="w-full h-full object-cover" onError={() => setImgError(true)} />
         )}
         <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
           {article.countryTag}
