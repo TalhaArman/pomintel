@@ -1,25 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/lovable-uploads/43909c87-24d3-4214-b746-3b8486e8be80.png" type="image/png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>The World's First Pomegranate Intelligence Agency</title>
-    <meta name="description" content="The World's First Pomegranate Intelligence Agency" />
-    <meta name="author" content="pomintel" />
-
-    <meta property="og:title" content="The World's First Pomegranate Intelligence Agency" />
-    <meta property="og:description" content="The World's First Pomegranate Intelligence Agency" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
-
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomegranate Trade Dashboard</title>
+  <link rel="icon" type="image/png" href="/pomegranate-logo.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* For Webkit-based browsers (Chrome, Safari, Edge) */
+    ::-webkit-scrollbar {
+      width: 8px; /* Width of the scrollbar */
+      height: 8px; /* Height of the scrollbar for horizontal scroll */
+    }
+    ::-webkit-scrollbar-track {
+      background: #f3f4f6; /* Tailwind gray-100 */
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #9ca3af; /* Tailwind gray-400 */
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6b7280; /* Tailwind gray-500 */
+    }
+    /* Basic marquee animation */
+    @keyframes marquee {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+    .animate-marquee {
+      display: flex;
+      animation: marquee 30s linear infinite;
+    }
+    .group:hover .animate-marquee {
+      animation-play-state: paused;
+    }
+    /* Ensure content inside marquee items doesn't get cut off during loop */
+    .marquee-item-wrapper > * {
+        flex-shrink: 0;
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "recharts": "https://esm.sh/recharts@^3.0.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
 </html>
