@@ -100,7 +100,7 @@ export const PomegranateLogo: React.FC<{ className?: string }> = ({ className })
   }
   return (
     <img
-      src="/pomegranate-logo.png"
+      src="/images/pomegranate-logo.png"
       className={className}
       alt="Pomegranate Logo"
       style={{ display: 'inline-block' }}
