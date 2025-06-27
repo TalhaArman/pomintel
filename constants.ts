@@ -129,7 +129,7 @@ export const TRADE_SNAPSHOT_DATA: Record<string, TradeSnapshotData> = {
 export const ARTICLES_DATA: Article[] = [
   {
     id: 'red-gold-of-the-andes',
-    image: '/peru.jpg',
+    image: './public/peru.jpg',
     countryTag: 'PERU',
     title: "Red Gold of the Andes: Peru's Pomegranate Push",
     subtitle: "RED GOLD OF THE ANDES",
