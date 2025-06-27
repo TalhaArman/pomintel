@@ -15,7 +15,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ article, onClick }) => {
     >
       <div className="relative">
           <div className="w-full h-48 flex items-center justify-center bg-gray-100">    
-          <img src={article.image} alt={article.title} className="w-full h-48 object-cover" onError={() => setImgError(true)} />
+          <img src={article.image} alt={article.title} className="w-full h-48 object-cover" />
         <span className="absolute top-2 left-2 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
           {article.countryTag}
         </span>
