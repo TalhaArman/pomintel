@@ -42,7 +42,7 @@ const HarvestActivityChart: React.FC<HarvestActivityChartProps> = ({ data, selec
           ) : (
             <YAxis 
               stroke="#6b7280" /* gray-500 */
-              label={{ value: "Harvest Activity (%)", angle: -90, position: 'insideLeft', fill: '#4b5563', dy:70, dx:-5, fontSize:12 }} /* gray-600 */
+              label={{ value: "Harvest Activity (%)", angle: -90, position: 'insideLeft', fill: '#4b5563', dy:70, dx:10, fontSize:12 }} /* gray-600 */
             />
           )}
           <Tooltip
@@ -54,7 +54,7 @@ const HarvestActivityChart: React.FC<HarvestActivityChartProps> = ({ data, selec
           <Legend wrapperStyle={{ color: '#374151' }} /> {/* gray-700 */}
           {countries.map((country) => {
             if (selectedCountry === 'all' || selectedCountry.toLowerCase() === country.toLowerCase()) {
-              return <Bar key={country} dataKey={country} fill={HARVEST_COUNTRY_COLORS[country]} radius={[4, 4, 4, 4]} />;
+              return <Bar key={country} dataKey={country} fill={HARVEST_COUNTRY_COLORS[country]} radius={isMobile ? [4, 0, 0, 4] : [4, 4, 0, 0]} />;
             }
             return null;
           })}

@@ -108,3 +108,9 @@ export const PomegranateLogo: React.FC<{ className?: string }> = ({ className })
     />
   );
 };
+
+export const DoubleArrowSortIcon: React.FC<{ className?: string }> = ({ className }) => (
+  <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 4l-3 3m3-3l3 3m-3-3v10m0 0l-3-3m3 3l3-3" />
+  </svg>
+);

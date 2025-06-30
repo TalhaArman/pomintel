@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { MarketPriceDetail } from '../../../types';
-import { SortIcon, SortAscIcon, SortDescIcon } from '../../IconComponents';
+import { SortIcon, SortAscIcon, SortDescIcon, DoubleArrowSortIcon } from '../../IconComponents';
 import Tooltip from '../../ui/Tooltip';
 
 interface MarketPricesTableProps {
@@ -49,9 +49,7 @@ const MarketPricesTable: React.FC<MarketPricesTableProps> = ({ data }) => {
   };
 
   const getSortIcon = (key: keyof MarketPriceDetail) => {
-    if (sortKey !== key) return <SortIcon className="w-4 h-4 ml-1 text-gray-400" />;
-    if (sortOrder === 'asc') return <SortAscIcon className="w-4 h-4 ml-1 text-black" />;
-    return <SortDescIcon className="w-4 h-4 ml-1 text-black" />;
+    return <DoubleArrowSortIcon className="w-4 h-4 ml-1 text-gray-400" />;
   };
 
   const getStatusColor = (status: MarketPriceDetail['status']) => {

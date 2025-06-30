@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect, useCallback } from 'react';
 import { TradePerformanceData } from '../../../types';
-import { ArrowUpShortIcon, ArrowDownShortIcon, SortIcon, SortAscIcon, SortDescIcon } from '../../IconComponents';
+import { ArrowUpShortIcon, ArrowDownShortIcon, SortIcon, SortAscIcon, SortDescIcon, DoubleArrowSortIcon } from '../../IconComponents';
 import Tooltip from '../../ui/Tooltip'; // Import Tooltip
 import { INITIAL_TRADE_PERFORMANCE_DATA } from '../../../constants';
 
@@ -76,9 +76,7 @@ const TradePerformanceTable: React.FC = () => {
   };
   
   const getSortIcon = (key: SortKey) => {
-    if (sortKey !== key) return <SortIcon className="w-4 h-4 ml-1 text-gray-400" />;
-    if (sortOrder === 'asc') return <SortAscIcon className="w-4 h-4 ml-1 text-black" />;
-    return <SortDescIcon className="w-4 h-4 ml-1 text-black" />;
+    return <DoubleArrowSortIcon className="w-4 h-4 ml-1 text-gray-400" />;
   };
 
   const columns: { key: SortKey; label: string; sortable: boolean, numeric?: boolean }[] = [
