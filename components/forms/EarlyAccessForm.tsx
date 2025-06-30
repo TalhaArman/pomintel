@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { EarlyAccessFormData } from '../../types';
 import { SUPPLIER_TYPE_OPTIONS } from '../../constants';
@@ -26,14 +25,29 @@ const EarlyAccessForm: React.FC<EarlyAccessFormProps> = ({ onClose }) => {
     setFormData(prev => ({ ...prev, type: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.phone || !formData.email || !formData.country || !formData.type) {
-        alert("Please fill in all required fields.");
-        return;
+      alert("Please fill in all required fields.");
+      return;
     }
-    console.log('Early Access Form Submitted:', formData);
-    setIsSubmitted(true);
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'c74cd7ff-2723-44af-b9e6-fcd79504b4b4',
+          ...formData
+        })
+      });
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert('Submission failed. Please try again.');
+      }
+    } catch (error) {
+      alert('Submission failed. Please try again.');
+    }
   };
 
   const commonInputClasses = "mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-gray-500 focus:border-gray-500 sm:text-sm";

@@ -17,6 +17,8 @@ export const Header: React.FC<HeaderProps> = ({ navItems, activeSection, onNavLi
   const [selectedRegion, setSelectedRegion] = useState<string>(REGION_OPTIONS[0].value);
   const [isMobileSearchVisible, setIsMobileSearchVisible] = useState(true);
   const lastScrollY = useRef(0);
+  const [subscribeEmail, setSubscribeEmail] = useState('');
+  const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -65,6 +67,29 @@ export const Header: React.FC<HeaderProps> = ({ navItems, activeSection, onNavLi
         ? 'bg-black text-white'
         : 'text-gray-600 hover:bg-gray-200'
     }`;
+
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!subscribeEmail) return;
+    try {
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          access_key: 'c74cd7ff-2723-44af-b9e6-fcd79504b4b4',
+          email: subscribeEmail
+        })
+      });
+      if (response.ok) {
+        setSubscribeStatus('success');
+        setSubscribeEmail('');
+      } else {
+        setSubscribeStatus('error');
+      }
+    } catch {
+      setSubscribeStatus('error');
+    }
+  };
 
   return (
     <header className="bg-white shadow-md sticky top-0 z-40">
@@ -183,12 +208,22 @@ export const Header: React.FC<HeaderProps> = ({ navItems, activeSection, onNavLi
       <div className="hidden md:block bg-black text-white py-3 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-4">
           <label htmlFor="desktop-email-subscribe" className="text-sm font-medium text-white">Subscribe for email updates:</label>
-          <div className="flex w-full sm:w-auto">
-            <input type="email" id="desktop-email-subscribe" placeholder="your@email.com" className="flex-grow sm:flex-grow-0 sm:w-64 bg-black text-white placeholder-white rounded-l-md py-2 px-3 focus:ring-white focus:border-white focus:outline-none text-sm border border-white"/>
-            <button className="bg-white hover:bg-gray-200 text-black font-semibold py-2 px-3 rounded-r-md transition-colors text-sm border border-white">
+          <form className="flex w-full sm:w-auto" onSubmit={handleSubscribe}>
+            <input
+              type="email"
+              id="desktop-email-subscribe"
+              placeholder="your@email.com"
+              className="flex-grow sm:flex-grow-0 sm:w-64 bg-black text-white placeholder-white rounded-l-md py-2 px-3 focus:ring-white focus:border-white focus:outline-none text-sm border border-white"
+              value={subscribeEmail}
+              onChange={e => setSubscribeEmail(e.target.value)}
+              required
+            />
+            <button type="submit" className="bg-white hover:bg-gray-200 text-black font-semibold py-2 px-3 rounded-r-md transition-colors text-sm border border-white">
               Subscribe
             </button>
-          </div>
+          </form>
+          {subscribeStatus === 'success' && <span className="text-green-400 text-xs ml-2">Subscribed!</span>}
+          {subscribeStatus === 'error' && <span className="text-red-400 text-xs ml-2">Error. Try again.</span>}
         </div>
       </div>
     </header>
