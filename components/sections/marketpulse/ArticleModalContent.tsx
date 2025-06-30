@@ -36,19 +36,6 @@ const ArticleModalContent: React.FC<ArticleModalContentProps> = ({ article }) =>
       <div className="prose prose-sm max-w-none whitespace-pre-line text-gray-700">
         {article.fullContent}
       </div>
-      {article.referenceUrl && (
-        <div className="mt-6 pt-4 border-t border-gray-200">
-            <a
-                href={article.referenceUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center text-sm font-medium text-gray-600 hover:text-black transition-colors"
-            >
-                View Source
-                <ExternalLinkIcon className="w-4 h-4 ml-1.5" />
-            </a>
-        </div>
-      )}
     </div>
   );
 };
